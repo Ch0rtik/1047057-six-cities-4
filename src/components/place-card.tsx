@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { OfferData } from '../types';
 import { Link } from 'react-router-dom';
 
@@ -6,8 +7,9 @@ type PlaceCardProps = {
 }
 
 export default function PlaceCard({offer}: PlaceCardProps) {
+  const [,setActive] = useState(false);
   return(
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseOver={() => setActive(true)} onMouseOut={() => setActive(false)}>
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>

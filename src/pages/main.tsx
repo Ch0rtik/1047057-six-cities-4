@@ -1,10 +1,12 @@
-import Card from '../components/card.tsx';
+import OfferList from '../components/offer-list.tsx';
+import { OfferData } from '../types.ts';
 
 type MainScreenProps = {
   placesFound: number;
+  offers: OfferData[];
 }
 
-export default function Main({placesFound}: MainScreenProps) {
+export default function Main({placesFound, offers}: MainScreenProps) {
   return(
     <div className="page page--gray page--main">
       <header className="header">
@@ -94,13 +96,7 @@ export default function Main({placesFound}: MainScreenProps) {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-              </div>
+              <OfferList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

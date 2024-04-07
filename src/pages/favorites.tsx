@@ -6,13 +6,16 @@ type FavProps = {
   offers: OfferData[];
 };
 
-export default function Favorites({ offers }: FavProps) {
-  const parisOffers = offers.filter((offer) => offer.city === City.Paris);
-  const cologneOffers = offers.filter((offer) => offer.city === City.Cologne);
-  const brusselsOffers = offers.filter((offer) => offer.city === City.Brussels);
-  const amsterdamOffers = offers.filter((offer) => offer.city === City.Amsterdam);
-  const hamburgOffers = offers.filter((offer) => offer.city === City.Hamburg);
-  const dusseldorfOffers = offers.filter((offer) => offer.city === City.Dusseldorf);
+export default function Favorites({offers}: FavProps) {
+  const favorites = offers.filter((offer) => offer.isFavorite);
+
+  const parisOffers = favorites.filter((offer) => offer.city === City.Paris);
+  const cologneOffers = favorites.filter((offer) => offer.city === City.Cologne);
+  const brusselsOffers = favorites.filter((offer) => offer.city === City.Brussels);
+  const amsterdamOffers = favorites.filter((offer) => offer.city === City.Amsterdam);
+  const hamburgOffers = favorites.filter((offer) => offer.city === City.Hamburg);
+  const dusseldorfOffers = favorites.filter((offer) => offer.city === City.Dusseldorf);
+
   return (
     <div className="page">
       <header className="header">

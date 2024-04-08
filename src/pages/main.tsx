@@ -110,7 +110,7 @@ export default function Main({placesFound, offers}: MainScreenProps) {
               <OfferList offers={offers} onListItemHover={handleListItemHover}/>
             </section>
             <div className="cities__right-section">
-              <section className="map">
+              <section className="cities__map map">
                 <Map centerCoordinates={CITY_COORDINATES.get(city)!} offers={offers} selectedOffer={selectedOffer}></Map>
               </section>
             </div>

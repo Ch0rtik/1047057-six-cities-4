@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Coordinates } from '../types';
+import { Coordinates } from '../types/types';
 import { Map, TileLayer } from 'leaflet';
 
 export default function useMap(mapRef: React.MutableRefObject<HTMLElement | null>, coords: Coordinates): Map | null {

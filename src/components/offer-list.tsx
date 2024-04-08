@@ -1,4 +1,4 @@
-import { OfferData } from '../types';
+import { OfferData } from '../types/types';
 import PlaceCard from './place-card';
 import { MouseEvent } from 'react';
 

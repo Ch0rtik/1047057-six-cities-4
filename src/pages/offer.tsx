@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import NotFound from './not-found';
-import { OfferData } from '../types';
+import { OfferData } from '../types/types';
 import ReviewForm from '../components/review-form';
 
 type OfferProps = {

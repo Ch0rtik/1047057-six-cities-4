@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../hooks/use-map';
-import { Coordinates, OfferData} from '../types';
+import { Coordinates, OfferData} from '../types/types';
 
 type MapProps = {
   cityCoordinates: Coordinates;

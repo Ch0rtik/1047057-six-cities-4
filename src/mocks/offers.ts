@@ -1,4 +1,4 @@
-import { City, OfferData, OfferType } from '../types';
+import { City, OfferData, OfferType } from '../types/types';
 
 const Landlords = {
   Max: {avatar: '/img/avatar-max.jpg', name: 'Max', isPro: true},

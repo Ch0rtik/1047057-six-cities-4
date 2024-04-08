@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import { OfferData } from '../types';
+import { OfferData } from '../types/types';
 import { Link } from 'react-router-dom';
 
 type PlaceCardProps = {

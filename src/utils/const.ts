@@ -1,4 +1,4 @@
-import { City, Coordinates } from '../types';
+import { City, Coordinates } from '../types/types';
 
 export const SETTING = {
   placesFound: 312

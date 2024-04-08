@@ -6,7 +6,7 @@ import NotFound from '../pages/not-found';
 import Favorites from '../pages/favorites';
 import PrivateRoute from './private-route';
 import { AuthStatus} from '../utils/const';
-import { OfferData } from '../types';
+import { OfferData } from '../types/types';
 
 type AppScreenProps = {
   placesFound: number;

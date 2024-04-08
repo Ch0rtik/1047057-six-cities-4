@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import OfferList from '../components/offer-list.tsx';
-import { City, OfferData } from '../types.ts';
+import { City, OfferData } from '../types/types.ts';
 import Map from '../components/map.tsx';
 import { CITY_COORDINATES } from '../utils/const.ts';
 

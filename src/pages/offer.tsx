@@ -4,6 +4,7 @@ import { OfferData } from '../types/types';
 import ReviewForm from '../components/review-form';
 import ReviewList from '../components/review-list';
 import NearPlacesList from '../components/near-places-list';
+import Map from '../components/map';
 
 type OfferProps = {
   offers: OfferData[];
@@ -135,7 +136,9 @@ export default function Offer({ offers }: OfferProps) {
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <section className="map">
+            <Map centerCoordinates={offer.coordinates} offers={offers} selectedOffer={offer}></Map>
+          </section>
         </section>
 
         <div className="container">

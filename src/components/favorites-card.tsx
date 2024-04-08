@@ -5,7 +5,7 @@ type FavCardProps = {
   offer: OfferData;
 }
 
-export default function FavoriteCard({offer}: FavCardProps) {
+export default function FavoritesCard({offer}: FavCardProps) {
   return (
     <article className="favorites__card place-card">
       {offer.isPremium && (

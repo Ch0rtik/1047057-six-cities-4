@@ -111,7 +111,7 @@ export default function Main({placesFound, offers}: MainScreenProps) {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map cityCoordinates={CITY_COORDINATES.get(city)!} offers={offers} selectedOffer={selectedOffer}></Map>
+                <Map centerCoordinates={CITY_COORDINATES.get(city)!} offers={offers} selectedOffer={selectedOffer}></Map>
               </section>
             </div>
           </div>

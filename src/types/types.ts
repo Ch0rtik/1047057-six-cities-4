@@ -45,4 +45,14 @@ export type OfferData = {
 
   city: City;
   coordinates: Coordinates;
+  reviews: ReviewData[];
+}
+
+export type ReviewData = {
+  id: number;
+  avatar: string;
+  name: string;
+  rating: number;
+  date: Date;
+  text: string;
 }

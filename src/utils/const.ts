@@ -10,12 +10,6 @@ export enum AuthStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
-
-export const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
-
 export const CITY_COORDINATES = new Map<City, Coordinates>([
   [City.Amsterdam, {lat: 52.3676, lng: 4.9041, zoom: 12}],
   [City.Brussels, {lat: 50.8476, lng: 4.3572, zoom: 10}],

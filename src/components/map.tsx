@@ -3,7 +3,6 @@ import { Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../hooks/use-map';
 import { Coordinates, OfferData} from '../types';
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../utils/const';
 
 type MapProps = {
   cityCoordinates: Coordinates;
@@ -12,13 +11,13 @@ type MapProps = {
 }
 
 const defaultCustomIcom = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
+  iconUrl: 'img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
 
 const currentCustomIcom = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
+  iconUrl: 'img/pin-active.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });

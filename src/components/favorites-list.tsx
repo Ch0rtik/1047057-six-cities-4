@@ -1,4 +1,4 @@
-import { City, OfferData } from '../types';
+import { City, OfferData } from '../types/types';
 import FavoritePlaces from './favorites-places';
 
 type FavListProps = {

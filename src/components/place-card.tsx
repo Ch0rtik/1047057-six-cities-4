@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { OfferData } from '../types';
+import { MouseEvent } from 'react';
+import { OfferData } from '../types/types';
 import { Link } from 'react-router-dom';
 
 type PlaceCardProps = {
   offer: OfferData;
+  onMouseEnter: (evt: MouseEvent<HTMLLIElement>) => void;
 }
 
-export default function PlaceCard({offer}: PlaceCardProps) {
-  const [,setActive] = useState(false);
+export default function PlaceCard({offer, onMouseEnter}: PlaceCardProps) {
   return(
-    <article className="cities__card place-card" onMouseOver={() => setActive(true)} onMouseOut={() => setActive(false)}>
+    <article className="cities__card place-card" onMouseEnter={onMouseEnter} data-id={`${offer.id}`}>
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>

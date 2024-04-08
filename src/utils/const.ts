@@ -6,6 +6,8 @@ export enum AuthStatus {
   Unknown = 'UNKNOWN',
 }
 
+export const months = [undefined, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'November', 'October', 'December'];
+
 export const CITY_COORDINATES = new Map<City, Coordinates>([
   [City.Amsterdam, {lat: 52.3676, lng: 4.9041, zoom: 12}],
   [City.Brussels, {lat: 50.8476, lng: 4.3572, zoom: 12}],

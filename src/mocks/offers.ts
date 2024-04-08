@@ -25,7 +25,7 @@ export const offers: OfferData[] = [
     landlord: Landlords.Max,
 
     city: City.Amsterdam,
-    coordinates: {lat: 52.3909553943508, lng: 4.85309666406198, zoom: 12},
+    coordinates: {lat: 52.3909553943508, lng: 4.85309666406198, zoom: 14},
     reviews: reviews
   },
 
@@ -46,7 +46,7 @@ export const offers: OfferData[] = [
     household: ['WiFi', 'Free Beer'],
     landlord: Landlords.Max,
     city: City.Amsterdam,
-    coordinates: {lat: 52.3609553943508, lng: 4.85309666406198, zoom: 12},
+    coordinates: {lat: 52.3609553943508, lng: 4.85309666406198, zoom: 14},
     reviews: reviews
   },
 
@@ -68,7 +68,7 @@ export const offers: OfferData[] = [
     landlord: Landlords.Angelina,
 
     city: City.Amsterdam,
-    coordinates: {lat: 52.3909553943508, lng: 4.929309666406198, zoom: 12},
+    coordinates: {lat: 52.3909553943508, lng: 4.929309666406198, zoom: 14},
     reviews: reviews
   },
   {
@@ -89,7 +89,7 @@ export const offers: OfferData[] = [
     landlord: Landlords.Angelina,
 
     city: City.Amsterdam,
-    coordinates: {lat: 52.3809553943508, lng: 4.939309666406198, zoom: undefined},
+    coordinates: {lat: 52.3809553943508, lng: 4.939309666406198, zoom: 14},
     reviews: reviews
   },
 ];

@@ -1,9 +1,5 @@
 import { City, Coordinates } from '../types/types';
 
-export const SETTING = {
-  placesFound: 312
-};
-
 export enum AuthStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',

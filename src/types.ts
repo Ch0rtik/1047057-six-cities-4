@@ -7,6 +7,12 @@ export enum City {
   Dusseldorf = 'Dusseldorf'
 }
 
+export type Coordinates = {
+  lat: number;
+  lng: number;
+  zoom: number | undefined;
+}
+
 export type Landlord = {
   avatar: string;
   name: string;
@@ -38,4 +44,5 @@ export type OfferData = {
   landlord: Landlord;
 
   city: City;
+  coordinates: Coordinates;
 }

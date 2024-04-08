@@ -23,7 +23,8 @@ export const offers: OfferData[] = [
     household: ['Wi-Fi', 'Heating', 'Kitchen'],
     landlord: Landlords.Max,
 
-    city: City.Amsterdam
+    city: City.Amsterdam,
+    coordinates: {lat: 52.3909553943508, lng: 4.85309666406198, zoom: undefined}
   },
 
   {
@@ -42,7 +43,8 @@ export const offers: OfferData[] = [
     maxNumOfGuests: 2,
     household: ['WiFi', 'Free Beer'],
     landlord: Landlords.Max,
-    city: City.Amsterdam
+    city: City.Amsterdam,
+    coordinates: {lat: 52.3609553943508, lng: 4.85309666406198, zoom: undefined}
   },
 
   {
@@ -62,7 +64,8 @@ export const offers: OfferData[] = [
     household: ['Wi-Fi', 'Heating', 'Kitchen', 'TV', 'Dishwasher'],
     landlord: Landlords.Angelina,
 
-    city: City.Hamburg
+    city: City.Amsterdam,
+    coordinates: {lat: 52.3909553943508, lng: 4.929309666406198, zoom: undefined}
   },
   {
     id: 3,
@@ -81,6 +84,7 @@ export const offers: OfferData[] = [
     household: ['WiFi', 'Heating', 'Kitchen'],
     landlord: Landlords.Angelina,
 
-    city: City.Hamburg
+    city: City.Amsterdam,
+    coordinates: {lat: 52.3809553943508, lng: 4.939309666406198, zoom: undefined}
   },
 ];

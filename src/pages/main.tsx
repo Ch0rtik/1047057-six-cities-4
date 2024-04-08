@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import OfferList from '../components/offer-list.tsx';
-import { OfferData } from '../types.ts';
+import { City, OfferData } from '../types.ts';
+import Map from '../components/map.tsx';
+import { CITY_COORDINATES } from '../utils/const.ts';
 
 type MainScreenProps = {
   placesFound: number;
@@ -7,6 +10,14 @@ type MainScreenProps = {
 }
 
 export default function Main({placesFound, offers}: MainScreenProps) {
+  const city = City.Amsterdam;
+
+  const [selectedOffer, setSelectedOffer] = useState<OfferData | undefined> (undefined);
+
+  const handleListItemHover = (lsitItemId: string | undefined) => {
+    const currentOffer = offers.find((offer) => offer.id.toString() === lsitItemId);
+    setSelectedOffer(currentOffer);
+  };
   return(
     <div className="page page--gray page--main">
       <header className="header">
@@ -96,10 +107,12 @@ export default function Main({placesFound, offers}: MainScreenProps) {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OfferList offers={offers}/>
+              <OfferList offers={offers} onListItemHover={handleListItemHover}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map cityCoordinates={CITY_COORDINATES.get(city)!} offers={offers} selectedOffer={selectedOffer}></Map>
+              </section>
             </div>
           </div>
         </div>

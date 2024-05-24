@@ -136,9 +136,7 @@ export default function Offer({ offers }: OfferProps) {
               </section>
             </div>
           </div>
-          <section className="offer__map map">
-            <Map centerCoordinates={offer.coordinates} offers={offers} selectedOffer={offer}></Map>
-          </section>
+          <Map mainPage={false} centerCoordinates={offer.coordinates} offers={offers} selectedOffer={offer}></Map>
         </section>
 
         <div className="container">

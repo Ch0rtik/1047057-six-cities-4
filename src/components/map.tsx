@@ -5,6 +5,7 @@ import useMap from '../hooks/use-map';
 import { Coordinates, OfferData} from '../types/types';
 
 type MapProps = {
+  mainPage: boolean;
   centerCoordinates: Coordinates;
   offers: OfferData[];
   selectedOffer: OfferData | undefined;
@@ -22,7 +23,7 @@ const currentCustomIcom = new Icon({
   iconAnchor: [20, 40],
 });
 
-export default function Map({centerCoordinates, offers, selectedOffer}: MapProps) {
+export default function Map({mainPage, centerCoordinates, offers, selectedOffer}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, centerCoordinates);
 
@@ -46,11 +47,10 @@ export default function Map({centerCoordinates, offers, selectedOffer}: MapProps
   }, [map, offers, selectedOffer]);
 
   return (
-    <div
-      style={{height: '500px'}}
+    <section className={mainPage ? 'cities__map map' : 'offer__map map'}
       ref={mapRef}
     >
 
-    </div>
+    </section>
   );
 }

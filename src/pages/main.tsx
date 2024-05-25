@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import OfferList from '../components/offer-list.tsx';
-import { City, OfferData } from '../types/types.ts';
+import { City, OfferData, SortType, State } from '../types/types.ts';
 import Map from '../components/map.tsx';
 import { CITY_COORDINATES } from '../utils/const.ts';
 import { store } from '../store/index.ts';
-import { changeCity, fetchOffers } from '../store/action.ts';
+import { changeCity, changeSort, fetchOffers } from '../store/action.ts';
+import PlacesSorting from '../components/places-sorting.tsx';
 
 export default function Main() {
   if(store.getState().offers.length === 0) {
@@ -13,11 +14,41 @@ export default function Main() {
   if(store.getState().city !== City.Amsterdam) {
     store.dispatch(changeCity(City.Amsterdam));
   }
-  const offers = store.getState().offers;
+  let offers = store.getState().offers;
   const placesFound = offers.length;
   const city = City.Amsterdam;
 
   const [selectedOffer, setSelectedOffer] = useState<OfferData | undefined> (undefined);
+  const [sortType, setSortType] = useState<SortType> (store.getState().sortType);
+
+  const updatePlacesSorting = (state: State) => {
+    offers = state.offers;
+    setSortType(state.sortType);
+  };
+
+  const handleSortClick = (optionId: string) => {
+    let sortTypeInner: SortType;
+    switch(optionId) {
+      case '0': {
+        sortTypeInner = SortType.Popular;
+        break;
+      }
+      case '1': {
+        sortTypeInner = SortType.LowToHigh;
+        break;
+      }
+      case '2': {
+        sortTypeInner = SortType.HighToLow;
+        break;
+      }
+      case '3': {
+        sortTypeInner = SortType.TopRated;
+        break;
+      }
+    }
+    store.dispatch(changeSort(sortTypeInner!));
+    updatePlacesSorting(store.getState());
+  };
 
   const handleListItemHover = (lsitItemId: string | undefined) => {
     const currentOffer = offers.find((offer) => offer.id.toString() === lsitItemId);
@@ -97,21 +128,7 @@ export default function Main() {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{placesFound} places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
+              <PlacesSorting sortType={sortType} onSortChange={handleSortClick}></PlacesSorting>
               <OfferList offers={offers} onListItemHover={handleListItemHover}/>
             </section>
             <div className="cities__right-section">

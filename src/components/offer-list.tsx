@@ -9,7 +9,7 @@ type OfferListProps = {
 };
 
 export default function OfferList({offers, onListItemHover}: OfferListProps) {
-  const handleListItemHover = (evt: MouseEvent<HTMLLIElement>) => {
+  const onMouseEnter = (evt: MouseEvent<HTMLLIElement>) => {
     evt.preventDefault();
     onListItemHover(evt.currentTarget.dataset.id);
   };
@@ -18,7 +18,7 @@ export default function OfferList({offers, onListItemHover}: OfferListProps) {
     <div className="cities__places-list places__list tabs__content">
       {
         offers.map((offer) => (
-          <PlaceCard key={offer.id} offer={offer} onMouseEnter={handleListItemHover} />
+          <PlaceCard key={offer.id} offer={offer} onMouseEnter={onMouseEnter} />
         )
         )
       }

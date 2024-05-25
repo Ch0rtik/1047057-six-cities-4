@@ -1,4 +1,5 @@
-import { City, OfferData, OfferType } from '../types/types';
+import { CityNames, OfferData, OfferType } from '../types/types';
+import { CITY_COORDINATES } from '../utils/const';
 import { reviews } from './reviews';
 
 const Landlords = {
@@ -8,8 +9,8 @@ const Landlords = {
 
 export const offers: OfferData[] = [
   {
-    id: 0,
-    img: '/img/apartment-01.jpg',
+    id: '0',
+    previewImage: '/img/apartment-01.jpg',
     isPremium: true,
     price: 690,
     title: 'Krutaya hata',
@@ -24,14 +25,14 @@ export const offers: OfferData[] = [
     household: ['Wi-Fi', 'Heating', 'Kitchen'],
     landlord: Landlords.Max,
 
-    city: City.Amsterdam,
-    coordinates: {lat: 52.3909553943508, lng: 4.85309666406198, zoom: 14},
+    city: {name: 'Amsterdam', location: CITY_COORDINATES.get(CityNames.Amsterdam)!},
+    location: {latitude: 52.3909553943508, longitude: 4.85309666406198, zoom: 14},
     reviews: reviews
   },
 
   {
-    id: 1,
-    img: '/img/room.jpg',
+    id: '1',
+    previewImage: '/img/room.jpg',
     isPremium: false,
     price: 120,
     title: 'Nicho takaya komnatka',
@@ -45,14 +46,14 @@ export const offers: OfferData[] = [
     maxNumOfGuests: 2,
     household: ['WiFi', 'Free Beer'],
     landlord: Landlords.Max,
-    city: City.Amsterdam,
-    coordinates: {lat: 52.3609553943508, lng: 4.85309666406198, zoom: 14},
+    city: {name: 'Amsterdam', location: CITY_COORDINATES.get(CityNames.Amsterdam)!},
+    location: {latitude: 52.3609553943508, longitude: 4.85309666406198, zoom: 14},
     reviews: reviews
   },
 
   {
-    id: 2,
-    img: '/img/apartment-02.jpg',
+    id: '2',
+    previewImage: '/img/apartment-02.jpg',
     isPremium: true,
     price: 420,
     title: 'Zholtaya kvartitr',
@@ -67,13 +68,13 @@ export const offers: OfferData[] = [
     household: ['Wi-Fi', 'Heating', 'Kitchen', 'TV', 'Dishwasher'],
     landlord: Landlords.Angelina,
 
-    city: City.Amsterdam,
-    coordinates: {lat: 52.3909553943508, lng: 4.929309666406198, zoom: 14},
+    city: {name: 'Amsterdam', location: CITY_COORDINATES.get(CityNames.Amsterdam)!},
+    location: {latitude: 52.3909553943508, longitude: 4.929309666406198, zoom: 14},
     reviews: reviews
   },
   {
-    id: 3,
-    img: '/img/apartment-03.jpg',
+    id: '3',
+    previewImage: '/img/apartment-03.jpg',
     isPremium: false,
     price: 230,
     title: 'Seraya kvartira',
@@ -88,8 +89,8 @@ export const offers: OfferData[] = [
     household: ['WiFi', 'Heating', 'Kitchen'],
     landlord: Landlords.Angelina,
 
-    city: City.Amsterdam,
-    coordinates: {lat: 52.3809553943508, lng: 4.939309666406198, zoom: 14},
+    city: {name: 'Amsterdam', location: CITY_COORDINATES.get(CityNames.Amsterdam)!},
+    location: {latitude: 52.3809553943508, longitude: 4.939309666406198, zoom: 14},
     reviews: reviews
   },
 ];

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Coordinates } from '../types/types';
+import { Location } from '../types/types';
 import { Map, TileLayer } from 'leaflet';
 
-export default function useMap(mapRef: React.MutableRefObject<HTMLElement | null>, coords: Coordinates): Map | null {
+export default function useMap(mapRef: React.MutableRefObject<HTMLElement | null>, coords: Location): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 
@@ -10,8 +10,8 @@ export default function useMap(mapRef: React.MutableRefObject<HTMLElement | null
     if(mapRef.current !== null && !isRenderedRef.current) {
       const instance = new Map(mapRef.current, {
         center: {
-          lat: coords.lat,
-          lng: coords.lng,
+          lat: coords.latitude,
+          lng: coords.longitude,
         },
         zoom: coords.zoom,
       });

@@ -1,38 +1,31 @@
 import { MouseEvent, useState } from 'react';
 import { SortType } from '../types/types';
 import PlacesOptions from './places-options';
-
-type PlacesSortingProps = {
-  sortType: SortType;
-  onSortChange: (optionId: string) => void;
-};
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { changeSort } from '../store/action';
 
 
-export default function PlacesSorting({sortType, onSortChange}: PlacesSortingProps) {
-  let tabIndex = '0';
-
+export default function PlacesSorting() {
+  const sortType = useAppSelector((state) => state.sortType);
+  const dispatch = useAppDispatch();
   const [open, setOpen] = useState<boolean>(false);
-  const onListOpen = (evt: MouseEvent<HTMLUListElement>) => {
-    evt.preventDefault();
-    setOpen(true);
-  };
-  const onSortChoice = (tabId: string) => (evt: MouseEvent<HTMLLIElement>) => {
-    tabIndex = tabId;
+
+  const onSortChoice = (innerSortType: SortType) => (evt: MouseEvent<HTMLLIElement>) => {
     setOpen(false);
     evt.preventDefault();
-    onSortChange(tabId);
+    dispatch(changeSort(innerSortType));
   };
 
   return (
-    <form className="places__sorting" action="#" method="get">
+    <form className="places__sorting" action="#" method="get" onClick={() => setOpen(!open)}>
       <span className="places__sorting-caption">Sort by </span>
-      <span className="places__sorting-type" tabIndex={+tabIndex} onMouseDown={onListOpen}>
+      <span className="places__sorting-type" tabIndex={0}>
         {sortType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <PlacesOptions sortType={sortType} open={open} onSortChoice={onSortChoice}></PlacesOptions>
+      <PlacesOptions open={open} onSortChoice={onSortChoice}></PlacesOptions>
     </form>
   );
 }

@@ -1,20 +1,18 @@
 import { Link } from 'react-router-dom';
 import FavoritesList from '../components/favorites-list';
-import { City, OfferData } from '../types/types';
+import { OfferData } from '../types/types';
+import { useAppSelector } from '../hooks';
 
-type FavProps = {
-  offers: OfferData[];
-};
-
-export default function Favorites({offers}: FavProps) {
+export default function Favorites() {
+  const offers: OfferData[] = useAppSelector((state) => state.offers);
   const favorites = offers.filter((offer) => offer.isFavorite);
 
-  const parisOffers = favorites.filter((offer) => offer.city === City.Paris);
-  const cologneOffers = favorites.filter((offer) => offer.city === City.Cologne);
-  const brusselsOffers = favorites.filter((offer) => offer.city === City.Brussels);
-  const amsterdamOffers = favorites.filter((offer) => offer.city === City.Amsterdam);
-  const hamburgOffers = favorites.filter((offer) => offer.city === City.Hamburg);
-  const dusseldorfOffers = favorites.filter((offer) => offer.city === City.Dusseldorf);
+  const parisOffers = favorites.filter((offer) => offer.city.name === 'Paris');
+  const cologneOffers = favorites.filter((offer) => offer.city.name === 'Cologne');
+  const brusselsOffers = favorites.filter((offer) => offer.city.name === 'Brussels');
+  const amsterdamOffers = favorites.filter((offer) => offer.city.name === 'Amsterdam');
+  const hamburgOffers = favorites.filter((offer) => offer.city.name === 'Hamburg');
+  const dusseldorfOffers = favorites.filter((offer) => offer.city.name === 'Dusseldorf');
 
   return (
     <div className="page">
@@ -53,22 +51,22 @@ export default function Favorites({offers}: FavProps) {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               {(amsterdamOffers.length > 0) && (
-                <FavoritesList city={City.Amsterdam} offers={amsterdamOffers}></FavoritesList>
+                <FavoritesList cityName={'Amsterdam'} offers={amsterdamOffers}></FavoritesList>
               )}
               {(brusselsOffers.length > 0) && (
-                <FavoritesList city={City.Brussels} offers={brusselsOffers}></FavoritesList>
+                <FavoritesList cityName={'Brussels'} offers={brusselsOffers}></FavoritesList>
               )}
               {(cologneOffers.length > 0) && (
-                <FavoritesList city={City.Cologne} offers={cologneOffers}></FavoritesList>
+                <FavoritesList cityName={'Cologne'} offers={cologneOffers}></FavoritesList>
               )}
               {(dusseldorfOffers.length > 0) && (
-                <FavoritesList city={City.Dusseldorf} offers={dusseldorfOffers}></FavoritesList>
+                <FavoritesList cityName={'Dusseldorf'} offers={dusseldorfOffers}></FavoritesList>
               )}
               {(hamburgOffers.length > 0) && (
-                <FavoritesList city={City.Hamburg} offers={hamburgOffers}></FavoritesList>
+                <FavoritesList cityName={'Hamburg'} offers={hamburgOffers}></FavoritesList>
               )}
               {(parisOffers.length > 0) && (
-                <FavoritesList city={City.Paris} offers={parisOffers}></FavoritesList>
+                <FavoritesList cityName={'Paris'} offers={parisOffers}></FavoritesList>
               )}
             </ul>
           </section>

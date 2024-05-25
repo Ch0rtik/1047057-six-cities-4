@@ -1,18 +1,14 @@
 import { Link, useParams } from 'react-router-dom';
 import NotFound from './not-found';
 import { OfferData } from '../types/types';
-import ReviewForm from '../components/review-form';
-import ReviewList from '../components/review-list';
 import NearPlacesList from '../components/near-places-list';
 import Map from '../components/map';
+import { useAppSelector } from '../hooks';
 
-type OfferProps = {
-  offers: OfferData[];
-}
-
-export default function Offer({ offers }: OfferProps) {
+export default function Offer() {
+  const offers: OfferData[] = useAppSelector((state) => state.offers);
   const params = useParams();
-  const offer = offers.find((offerInner) => offerInner.id.toString() === params.id);
+  const offer = offers.find((offerInner) => offerInner.id === params.id);
   const nearPlaces = offers.filter((innerOffer) => innerOffer.id !== offer?.id);
 
   return offer ? (
@@ -50,13 +46,14 @@ export default function Offer({ offers }: OfferProps) {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {
+              {/*
                 offer.photos.map((photo) => (
                   <div key={photo} className="offer__image-wrapper">
                     <img className="offer__image" src={photo} alt="Photo studio" />
                   </div>
                 )
                 )
+                */
               }
             </div>
           </div>
@@ -103,11 +100,12 @@ export default function Offer({ offers }: OfferProps) {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {
+                  {/*
                     offer.household.map((utility) => (
                       <li key={utility} className="offer__inside-item">{utility}</li>
                     )
                     )
+                    */
                   }
                 </ul>
               </div>
@@ -115,12 +113,12 @@ export default function Offer({ offers }: OfferProps) {
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar" src={offer.landlord.avatar} width="74" height="74" alt="Host avatar" />
+                    <img className="offer__avatar user__avatar" src={/*offer.landlord.avatar*/''} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="offer__user-name">
-                    {offer.landlord.name}
+                    {/*offer.landlord.name*/}
                   </span>
-                  {offer.landlord.isPro && <span className="offer__user-status">Pro</span>}
+                  {/*offer.landlord.isPro && <span className="offer__user-status">Pro</span>*/}
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
@@ -130,13 +128,13 @@ export default function Offer({ offers }: OfferProps) {
               </div>
 
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offer.reviews.length}</span></h2>
-                <ReviewList reviews={offer.reviews}></ReviewList>
-                <ReviewForm></ReviewForm>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{/*offer.reviews.length*/}</span></h2>
+                {/*<ReviewList reviews={offer.reviews}></ReviewList>
+                <ReviewForm></ReviewForm>*/}
               </section>
             </div>
           </div>
-          <Map mainPage={false} centerCoordinates={offer.coordinates} offers={offers} selectedOffer={offer}></Map>
+          <Map mainPage={false} centerCoordinates={offer.location} offers={offers} selectedOffer={offer}></Map>
         </section>
 
         <div className="container">

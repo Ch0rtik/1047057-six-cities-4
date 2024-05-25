@@ -10,7 +10,6 @@ export default function Main() {
   const [initialOffers, city] = useAppSelector((state) => [
     [...state.offers].filter((offer: OfferData) => offer.city.name === state.city.name),
     state.city,
-    state.sortType
   ]);
   const placesFound = initialOffers.length;
 

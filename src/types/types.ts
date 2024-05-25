@@ -56,3 +56,8 @@ export type ReviewData = {
   date: Date;
   text: string;
 }
+
+export type State = {
+  city: City;
+  offers: OfferData[];
+}

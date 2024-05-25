@@ -3,13 +3,18 @@ import OfferList from '../components/offer-list.tsx';
 import { City, OfferData } from '../types/types.ts';
 import Map from '../components/map.tsx';
 import { CITY_COORDINATES } from '../utils/const.ts';
+import { store } from '../store/index.ts';
+import { changeCity, fetchOffers } from '../store/action.ts';
 
-type MainScreenProps = {
-  placesFound: number;
-  offers: OfferData[];
-}
-
-export default function Main({placesFound, offers}: MainScreenProps) {
+export default function Main() {
+  if(store.getState().offers.length === 0) {
+    store.dispatch(fetchOffers());
+  }
+  if(store.getState().city !== City.Amsterdam) {
+    store.dispatch(changeCity(City.Amsterdam));
+  }
+  const offers = store.getState().offers;
+  const placesFound = offers.length;
   const city = City.Amsterdam;
 
   const [selectedOffer, setSelectedOffer] = useState<OfferData | undefined> (undefined);

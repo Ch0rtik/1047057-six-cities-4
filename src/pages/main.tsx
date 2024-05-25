@@ -1,19 +1,24 @@
 import { useState } from 'react';
 import OfferList from '../components/offer-list.tsx';
-import { CityNames, OfferData} from '../types/types.ts';
+import { CityNames, OfferData, SortType} from '../types/types.ts';
 import Map from '../components/map.tsx';
 import PlacesSorting from '../components/places-sorting.tsx';
 import { useAppSelector } from '../hooks/index.ts';
+import sortOffers from '../utils/utils.ts';
 
 export default function Main() {
-  const [offers, city] = useAppSelector((state) => [
+  const [initialOffers, city] = useAppSelector((state) => [
     [...state.offers].filter((offer: OfferData) => offer.city.name === state.city.name),
     state.city,
+    state.sortType
   ]);
-  const placesFound = offers.length;
+  const placesFound = initialOffers.length;
 
   const [selectedOffer, setSelectedOffer] = useState<OfferData | undefined> (undefined);
-
+  const [offers, setOffers] = useState<OfferData[]> ([...initialOffers]);
+  const onSortChange = (sortType: SortType) => {
+    setOffers(sortOffers(offers, sortType, initialOffers));
+  };
   const handleListItemHover = (lsitItemId: string | undefined) => {
     const currentOffer = offers.find((offer) => offer.id.toString() === lsitItemId);
     setSelectedOffer(currentOffer);
@@ -92,7 +97,7 @@ export default function Main() {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{placesFound} places to stay in {city.name}</b>
-              <PlacesSorting></PlacesSorting>
+              <PlacesSorting onSortChange={onSortChange}></PlacesSorting>
               <OfferList offers={offers} onListItemHover={handleListItemHover}/>
             </section>
             <div className="cities__right-section">

@@ -4,8 +4,11 @@ import PlacesOptions from './places-options';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { changeSort } from '../store/action';
 
+type PlacesSortingProps = {
+  onSortChange: (newSortType: SortType) => void;
+}
 
-export default function PlacesSorting() {
+export default function PlacesSorting({onSortChange}: PlacesSortingProps) {
   const sortType = useAppSelector((state) => state.sortType);
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState<boolean>(false);
@@ -14,6 +17,7 @@ export default function PlacesSorting() {
     setOpen(false);
     evt.preventDefault();
     dispatch(changeSort(innerSortType));
+    onSortChange(innerSortType);
   };
 
   return (

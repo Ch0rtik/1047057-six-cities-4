@@ -9,16 +9,15 @@ import { AuthStatus} from '../utils/const';
 import { OfferData } from '../types/types';
 
 type AppScreenProps = {
-  placesFound: number;
   offers: OfferData[];
 }
 
-export default function App({placesFound, offers}: AppScreenProps) {
+export default function App({offers}: AppScreenProps) {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route index element={<Main placesFound={placesFound} offers={offers} />} />
+          <Route index element={<Main />} />
           <Route path="login" element={<Login />} />
           <Route path="favorites" element={<PrivateRoute authStatus={AuthStatus.Auth}><Favorites offers={offers} /></PrivateRoute>} />
           <Route path="offer/">

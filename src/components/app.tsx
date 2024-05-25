@@ -6,22 +6,27 @@ import NotFound from '../pages/not-found';
 import Favorites from '../pages/favorites';
 import PrivateRoute from './private-route';
 import { AuthStatus} from '../utils/const';
-import { OfferData } from '../types/types';
+import { useAppSelector } from '../hooks';
+import LoadingScreen from '../pages/loading-screen';
 
-type AppScreenProps = {
-  offers: OfferData[];
-}
+export default function App() {
+  const authStatus = AuthStatus.Auth;
+  const offersLoading = useAppSelector((state) => state.offersLoading);
 
-export default function App({offers}: AppScreenProps) {
+  if(offersLoading) {
+    return(
+      <LoadingScreen></LoadingScreen>
+    );
+  }
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/">
           <Route index element={<Main />} />
           <Route path="login" element={<Login />} />
-          <Route path="favorites" element={<PrivateRoute authStatus={AuthStatus.Auth}><Favorites offers={offers} /></PrivateRoute>} />
+          <Route path="favorites" element={<PrivateRoute authStatus={authStatus}><Favorites/></PrivateRoute>} />
           <Route path="offer/">
-            <Route path=":id" element={<Offer offers={offers} />} />
+            <Route path=":id" element={<Offer/>} />
           </Route>
         </Route>
         <Route path="*" element={<NotFound/>}/>

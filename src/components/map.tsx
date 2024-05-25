@@ -2,11 +2,11 @@ import { useEffect, useRef } from 'react';
 import { Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../hooks/use-map';
-import { Coordinates, OfferData} from '../types/types';
+import { Location, OfferData} from '../types/types';
 
 type MapProps = {
   mainPage: boolean;
-  centerCoordinates: Coordinates;
+  centerCoordinates: Location;
   offers: OfferData[];
   selectedOffer: OfferData | undefined;
 }
@@ -32,8 +32,8 @@ export default function Map({mainPage, centerCoordinates, offers, selectedOffer}
       const markerLayer = layerGroup().addTo(map);
       offers.forEach((offer) => {
         const marker = new Marker({
-          lat: offer.coordinates.lat,
-          lng: offer.coordinates.lng,
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
         });
 
         marker.setIcon(selectedOffer !== undefined && offer.id === selectedOffer.id ? currentCustomIcom : defaultCustomIcom).addTo(markerLayer);

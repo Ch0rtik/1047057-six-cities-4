@@ -60,4 +60,12 @@ export type ReviewData = {
 export type State = {
   city: City;
   offers: OfferData[];
+  sortType: SortType;
+}
+
+export enum SortType {
+  Popular = 'Popular',
+  LowToHigh = 'Price: low to high',
+  HighToLow = 'Price: High to low',
+  TopRated = 'Top rated first'
 }

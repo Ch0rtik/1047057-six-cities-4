@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import OfferList from '../components/offer-list.tsx';
-import { CityNames, OfferData, SortType} from '../types/types.ts';
+import { CityNames, OfferCardData, SortType} from '../types/types.ts';
 import Map from '../components/map.tsx';
 import PlacesSorting from '../components/places-sorting.tsx';
 import { useAppSelector } from '../hooks/index.ts';
@@ -8,13 +8,13 @@ import sortOffers from '../utils/utils.ts';
 
 export default function Main() {
   const [initialOffers, city] = useAppSelector((state) => [
-    [...state.offers].filter((offer: OfferData) => offer.city.name === state.city.name),
+    [...state.offers].filter((offer: OfferCardData) => offer.city.name === state.city.name),
     state.city,
   ]);
   const placesFound = initialOffers.length;
 
-  const [selectedOffer, setSelectedOffer] = useState<OfferData | undefined> (undefined);
-  const [offers, setOffers] = useState<OfferData[]> ([...initialOffers]);
+  const [selectedOffer, setSelectedOffer] = useState<OfferCardData | undefined> (undefined);
+  const [offers, setOffers] = useState<OfferCardData[]> ([...initialOffers]);
   const onSortChange = (sortType: SortType) => {
     setOffers(sortOffers(offers, sortType, initialOffers));
   };

@@ -1,10 +1,10 @@
-import { OfferData } from '../types/types';
+import { OfferCardData } from '../types/types';
 import PlaceCard from './place-card';
 import { MouseEvent } from 'react';
 
 
 type OfferListProps = {
-  offers: OfferData[];
+  offers: OfferCardData[];
   onListItemHover: (listItemId: string | undefined) => void;
 };
 

@@ -1,9 +1,9 @@
-import { OfferData } from '../types/types';
+import { OfferCardData } from '../types/types';
 import FavoritePlaces from './favorites-places';
 
 type FavListProps = {
   cityName: string;
-  offers: OfferData[];
+  offers: OfferCardData[];
 }
 
 export default function FavoritesList({cityName, offers}: FavListProps) {

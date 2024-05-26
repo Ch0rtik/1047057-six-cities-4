@@ -1,8 +1,8 @@
-import { OfferData } from '../types/types';
+import { OfferCardData } from '../types/types';
 import NearPlacesCard from './near-places-card';
 
 type NearPlacesProps = {
-  offers: OfferData[];
+  offers: OfferCardData[];
 }
 
 export default function NearPlacesList({offers}: NearPlacesProps) {

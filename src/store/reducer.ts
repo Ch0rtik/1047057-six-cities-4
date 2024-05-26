@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { SortType, State } from '../types/types';
-import { changeCity, changeSort, loadOffers, requireAuthorization, setError, setOffersLoading } from './action';
+import { addReview, changeCity, changeSort, loadOfferPage, loadOffers, requireAuthorization, setError, setOffersLoading } from './action';
 import { AuthStatus } from '../utils/const';
 
 const initialState: State = {
@@ -10,6 +10,7 @@ const initialState: State = {
   authStatus: AuthStatus.Unknown,
   error: null,
   offersLoading: false,
+  currentOfferData: {offerData: null, reviewsData: [], nearbyData: []},
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -19,6 +20,10 @@ export const reducer = createReducer(initialState, (builder) => {
     state.sortType = action.payload;
   }).addCase(loadOffers, (state, action) => {
     state.offers = action.payload;
+  }).addCase(loadOfferPage, (state, action) => {
+    state.currentOfferData = action.payload;
+  }).addCase(addReview, (state, action) => {
+    state.currentOfferData.reviewsData = [...state.currentOfferData.reviewsData, action.payload];
   }).addCase(setOffersLoading, (state, action) => {
     state.offersLoading = action.payload;
   }).addCase(requireAuthorization, (state, action) => {

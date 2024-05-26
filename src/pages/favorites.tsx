@@ -1,10 +1,10 @@
 import FavoritesList from '../components/favorites-list';
-import { OfferData } from '../types/types';
+import { OfferCardData } from '../types/types';
 import { useAppSelector } from '../hooks';
 import React from 'react';
 
 export default function Favorites() {
-  const offers: OfferData[] = useAppSelector((state) => state.offers);
+  const offers: OfferCardData[] = useAppSelector((state) => state.offers);
   const favorites = offers.filter((offer) => offer.isFavorite);
 
   const parisOffers = favorites.filter((offer) => offer.city.name === 'Paris');

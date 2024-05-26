@@ -5,23 +5,25 @@ import Offer from '../pages/offer';
 import NotFound from '../pages/not-found';
 import Favorites from '../pages/favorites';
 import PrivateRoute from './private-route';
-import { AuthStatus} from '../utils/const';
 import { useAppSelector } from '../hooks';
 import LoadingScreen from '../pages/loading-screen';
+import Layout from './layout';
+import { AuthStatus } from '../utils/const';
 
 export default function App() {
-  const authStatus = AuthStatus.Auth;
+  const authStatus = useAppSelector((state) => state.authStatus);
   const offersLoading = useAppSelector((state) => state.offersLoading);
 
-  if(offersLoading) {
+  if(offersLoading || authStatus === AuthStatus.Unknown) {
     return(
       <LoadingScreen></LoadingScreen>
     );
   }
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/">
+        <Route path="/" element={<Layout authStatus={authStatus}/>}>
           <Route index element={<Main />} />
           <Route path="login" element={<Login />} />
           <Route path="favorites" element={<PrivateRoute authStatus={authStatus}><Favorites/></PrivateRoute>} />

@@ -1,9 +1,13 @@
 import { SortType, OfferData } from '../types/types';
 
-export default function sortOffers(offers: OfferData[], sortType: SortType){
+export default function sortOffers(offers: OfferData[], sortType: SortType, initialOffers: OfferData[]){
+  if (sortType === SortType.Popular) {
+    return [...initialOffers];
+  }
+  const newOffers = [...offers];
   switch(sortType) {
     case SortType.LowToHigh: {
-      offers.sort((offerA, offerB) => {
+      newOffers.sort((offerA, offerB) => {
         if (offerA.price > offerB.price) {
           return 1;
         }
@@ -15,7 +19,7 @@ export default function sortOffers(offers: OfferData[], sortType: SortType){
       break;
     }
     case SortType.HighToLow: {
-      offers.sort((offerA, offerB) => {
+      newOffers.sort((offerA, offerB) => {
         if (offerA.price < offerB.price) {
           return 1;
         }
@@ -27,7 +31,7 @@ export default function sortOffers(offers: OfferData[], sortType: SortType){
       break;
     }
     case SortType.TopRated: {
-      offers.sort((offerA, offerB) => {
+      newOffers.sort((offerA, offerB) => {
         if (offerA.rating < offerB.rating) {
           return 1;
         }
@@ -38,4 +42,5 @@ export default function sortOffers(offers: OfferData[], sortType: SortType){
       });
     }
   }
+  return newOffers;
 }

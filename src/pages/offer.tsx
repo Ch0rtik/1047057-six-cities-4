@@ -15,7 +15,7 @@ export default function Offer() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchOfferPageData(id));
+    dispatch(fetchOfferPageData(id!));
   }, [id, dispatch]);
 
   if(!offerData) {

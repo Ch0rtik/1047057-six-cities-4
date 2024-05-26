@@ -7,8 +7,13 @@ import LoadingScreen from './loading-screen';
 import ReviewList from '../components/review-list';
 import ReviewForm from '../components/review-form';
 import NearPlacesList from '../components/near-places-list';
+import { AuthStatus } from '../utils/const.ts';
 
-export default function Offer() {
+type OfferProps = {
+  authStatus: AuthStatus;
+}
+
+export default function Offer({authStatus}: OfferProps) {
   const { id } = useParams();
   const {offerData, reviewsData, nearbyData} = useAppSelector((state) => state.currentOfferData);
 
@@ -109,7 +114,7 @@ export default function Offer() {
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{/*offer.reviews.length*/}</span></h2>
               <ReviewList reviews={reviewsData}></ReviewList>
-              <ReviewForm id={offerData.id}></ReviewForm>
+              {authStatus === AuthStatus.Auth ? (<ReviewForm id={offerData.id}></ReviewForm>) : ''}
             </section>
           </div>
         </div>

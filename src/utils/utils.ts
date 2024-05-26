@@ -1,6 +1,6 @@
-import { SortType, OfferData } from '../types/types';
+import { SortType, OfferCardData } from '../types/types';
 
-export default function sortOffers(offers: OfferData[], sortType: SortType, initialOffers: OfferData[]){
+export default function sortOffers(offers: OfferCardData[], sortType: SortType, initialOffers: OfferCardData[]){
   if (sortType === SortType.Popular) {
     return [...initialOffers];
   }

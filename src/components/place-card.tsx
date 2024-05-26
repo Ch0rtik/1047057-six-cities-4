@@ -1,9 +1,9 @@
 import { MouseEvent } from 'react';
-import { OfferData } from '../types/types';
+import { OfferCardData } from '../types/types';
 import { Link } from 'react-router-dom';
 
 type PlaceCardProps = {
-  offer: OfferData;
+  offer: OfferCardData;
   onMouseEnter: (evt: MouseEvent<HTMLLIElement>) => void;
 }
 

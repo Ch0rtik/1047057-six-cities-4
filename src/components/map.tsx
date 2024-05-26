@@ -2,13 +2,13 @@ import { useEffect, useRef } from 'react';
 import { Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../hooks/use-map';
-import { Location, OfferData} from '../types/types';
+import { Location, OfferCardData, OfferData} from '../types/types';
 
 type MapProps = {
   mainPage: boolean;
   centerCoordinates: Location;
-  offers: OfferData[];
-  selectedOffer: OfferData | undefined;
+  offers: OfferCardData[];
+  selectedOffer: OfferCardData | OfferData | undefined;
 }
 
 const defaultCustomIcom = new Icon({

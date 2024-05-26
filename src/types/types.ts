@@ -34,7 +34,7 @@ export enum OfferType {
   Hotel = 'Hotel'
 }
 
-export type OfferData = {
+export type OfferCardData = {
   city: City;
   id: string;
   isFavorite: boolean;
@@ -45,33 +45,61 @@ export type OfferData = {
   rating: number;
   title: string;
   type: OfferType;
+}
 
-  photos: string[];
-  desc: string;
-  numOfBedrooms: number;
-  maxNumOfGuests: number;
-  household: string[];
-  landlord: Landlord;
-
-  reviews: ReviewData[];
+export type OfferData = {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  city: City;
+  location: Location;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  description: string;
+  bedrooms: number;
+  goods: [string];
+  host: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  images: [string];
+  maxAdults: number;
 }
 
 export type ReviewData = {
-  id: number;
-  avatar: string;
-  name: string;
+    id: string;
+    date: string;
+    user: {
+      name: string;
+      avatarUrl: string;
+      isPro: boolean;
+    };
+    comment: string;
+    rating: number;
+}
+
+export type NewReviewData = {
+  comment: string;
   rating: number;
-  date: Date;
-  text: string;
 }
 
 export type State = {
   city: City;
-  offers: OfferData[];
+  offers: OfferCardData[];
   sortType: SortType;
   authStatus: AuthStatus;
   error: string | null;
   offersLoading: boolean;
+  currentOfferData: CurrentOfferData;
+}
+
+export type CurrentOfferData = {
+  offerData: OfferData | null;
+  reviewsData: ReviewData[];
+  nearbyData: OfferCardData[];
 }
 
 export enum SortType {

@@ -1,7 +1,7 @@
-import { OfferData } from '../types/types';
+import { OfferCardData } from '../types/types';
 import { Link } from 'react-router-dom';
 type NearCardProps = {
-  offer: OfferData;
+  offer: OfferCardData;
 }
 
 export default function NearPlacesCard({ offer }: NearCardProps) {

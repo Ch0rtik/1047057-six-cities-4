@@ -21,6 +21,8 @@ export const CITY_COORDINATES = new Map<CityNames, Location>([
 
 export enum APIRoute {
   Offers = '/offers',
+  Reviews = '/comments',
+  Nearby = '/nearby',
   Login = '/login',
   Logout = '/logout',
 }

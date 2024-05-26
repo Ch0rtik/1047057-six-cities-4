@@ -20,8 +20,7 @@ export default function Offer() {
 
   if(!offerData) {
     return(
-      <LoadingScreen>
-      </LoadingScreen>
+      <LoadingScreen/>
     );
   }
 

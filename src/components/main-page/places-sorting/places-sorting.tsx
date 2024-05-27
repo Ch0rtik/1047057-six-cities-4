@@ -1,8 +1,8 @@
 import { MouseEvent, useState } from 'react';
-import { SortType } from '../types/types';
+import { SortType } from '../../../types/types';
 import PlacesOptions from './places-options';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { changeSort } from '../store/action';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { changeSort } from '../../../store/action';
 
 type PlacesSortingProps = {
   onSortChange: (newSortType: SortType) => void;
@@ -13,7 +13,7 @@ export default function PlacesSorting({onSortChange}: PlacesSortingProps) {
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState<boolean>(false);
 
-  const onSortChoice = (innerSortType: SortType) => (evt: MouseEvent<HTMLLIElement>) => {
+  const generateHandlePlaceOptionClick = (innerSortType: SortType) => (evt: MouseEvent<HTMLLIElement>) => {
     setOpen(false);
     evt.preventDefault();
     dispatch(changeSort(innerSortType));
@@ -29,7 +29,7 @@ export default function PlacesSorting({onSortChange}: PlacesSortingProps) {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <PlacesOptions open={open} onSortChoice={onSortChoice}></PlacesOptions>
+      <PlacesOptions open={open} generateHandlePlaceOptionClick={generateHandlePlaceOptionClick}></PlacesOptions>
     </form>
   );
 }

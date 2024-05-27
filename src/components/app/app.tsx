@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Main from '../pages/main';
-import Login from '../pages/login';
-import Offer from '../pages/offer';
-import NotFound from '../pages/not-found';
-import Favorites from '../pages/favorites';
-import PrivateRoute from './private-route';
-import { useAppSelector } from '../hooks';
-import LoadingScreen from '../pages/loading-screen';
-import Layout from './layout';
-import { AuthStatus } from '../utils/const';
+import { useAppSelector } from '../../hooks';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import Layout from '../layout/layout';
+import { AuthStatus } from '../../utils/const';
+import Favorites from '../../pages/favorites/favorites';
+import Login from '../../pages/login/login';
+import Main from '../../pages/main/main';
+import NotFound from '../../pages/not-found';
+import Offer from '../../pages/offer/offer';
+import PrivateRoute from '../private-route/private-route';
 
 export default function App() {
   const authStatus = useAppSelector((state) => state.authStatus);

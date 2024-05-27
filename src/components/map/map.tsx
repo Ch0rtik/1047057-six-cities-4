@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import useMap from '../hooks/use-map';
-import { Location, OfferCardData, OfferData} from '../types/types';
+import useMap from '../../hooks/use-map';
+import { Location, OfferCardData, OfferData} from '../../types/types';
 
 type MapProps = {
   mainPage: boolean;
   centerCoordinates: Location;
-  offers: OfferCardData[];
+  offers: (OfferCardData | OfferData)[];
   selectedOffer: OfferCardData | OfferData | undefined;
 }
 
@@ -36,7 +36,7 @@ export default function Map({mainPage, centerCoordinates, offers, selectedOffer}
           lng: offer.location.longitude,
         });
 
-        marker.setIcon(selectedOffer !== undefined && offer.id === selectedOffer.id ? currentCustomIcom : defaultCustomIcom).addTo(markerLayer);
+        marker.setIcon(selectedOffer !== undefined && offer.id === selectedOffer.id && mainPage ? currentCustomIcom : defaultCustomIcom).addTo(markerLayer);
       });
 
       return () => {
@@ -44,7 +44,7 @@ export default function Map({mainPage, centerCoordinates, offers, selectedOffer}
       };
     }
 
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, mainPage, selectedOffer]);
 
   return (
     <section className={mainPage ? 'cities__map map' : 'offer__map map'}

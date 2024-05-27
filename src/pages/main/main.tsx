@@ -7,6 +7,7 @@ import { OfferCardData, SortType, CityNames } from '../../types/types.ts';
 import sortOffers from '../../utils/utils.ts';
 import { changeCity } from '../../store/action.ts';
 import { CITY_COORDINATES } from '../../utils/const.ts';
+import MainEmpty from '../../components/main-page/main-empty/main-empty.tsx';
 
 export default function Main() {
   const [allOffers, city, sortType] = useAppSelector((state) => [
@@ -35,7 +36,7 @@ export default function Main() {
     setInitialOffer(newInitialOffers);
     setOffers(sortOffers(newInitialOffers, sortType, newInitialOffers));
   };
-  return(
+  return (allOffers.length !== 0) ? (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
@@ -88,5 +89,7 @@ export default function Main() {
         </div>
       </div>
     </main>
+  ) : (
+    <MainEmpty></MainEmpty>
   );
 }

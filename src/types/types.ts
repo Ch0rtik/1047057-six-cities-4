@@ -87,6 +87,7 @@ export type NewReviewData = {
 }
 
 export type State = {
+  email: string;
   city: City;
   offers: OfferCardData[];
   sortType: SortType;
@@ -94,6 +95,7 @@ export type State = {
   error: string | null;
   offersLoading: boolean;
   currentOfferData: CurrentOfferData;
+  favorites: OfferCardData[] | null;
 }
 
 export type CurrentOfferData = {

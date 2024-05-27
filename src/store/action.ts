@@ -17,7 +17,12 @@ export const Action = {
   FETCH_OFFER_PAGE: 'FETCH_OFFER_PAGE',
   LOAD_OFFER_PAGE: 'LOAD_OFFER_PAGE',
   SEND_REVIEW: 'SEND_REVIEW',
-  ADD_REVIEW: 'ADD_REVIEW'
+  ADD_REVIEW: 'ADD_REVIEW',
+  FETCH_FAVORITE: 'FETCH_FAVORITE',
+  SET_FAVORITE: 'SET_FAVORITE',
+  ADD_FAVORITE: 'ADD_FAVORITE',
+  LOAD_FAVORITE: 'LOAD_FAVORITE',
+  ADD_EMAIL: 'ADD_EMAIL',
 };
 
 export const changeCity = createAction(Action.CHANGE_CITY, (value: City) =>({payload: value}));
@@ -28,3 +33,6 @@ export const setError = createAction<string | null>(Action.SET_ERROR);
 export const setOffersLoading = createAction<boolean>(Action.SET_OFFERS_LOADING);
 export const loadOfferPage = createAction<CurrentOfferData>(Action.LOAD_OFFER_PAGE);
 export const addReview = createAction<ReviewData>(Action.ADD_REVIEW);
+export const loadFavorite = createAction<OfferCardData[]>(Action.LOAD_FAVORITE);
+export const addEmail = createAction<string>(Action.ADD_EMAIL);
+export const addFavorite = createAction<{id: string; status: number}>(Action.ADD_FAVORITE);

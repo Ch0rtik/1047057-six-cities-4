@@ -17,8 +17,6 @@ export default function Offer({authStatus}: OfferProps) {
   const { id } = useParams();
   const {offerData, reviewsData, nearbyData} = useAppSelector((state) => state.currentOfferData);
 
-  console.log(offerData?.location);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {

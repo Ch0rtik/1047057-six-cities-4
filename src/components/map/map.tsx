@@ -7,7 +7,7 @@ import { Location, OfferCardData, OfferData} from '../../types/types';
 type MapProps = {
   mainPage: boolean;
   centerCoordinates: Location;
-  offers: OfferCardData[];
+  offers: (OfferCardData | OfferData)[];
   selectedOffer: OfferCardData | OfferData | undefined;
 }
 

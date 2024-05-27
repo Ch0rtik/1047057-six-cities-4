@@ -11,8 +11,6 @@ export default function useMap(mapRef: React.MutableRefObject<HTMLElement | null
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 
-  console.log(map?.getCenter());
-
   useEffect(() => {
     if(mapRef.current !== null && !isRenderedRef.current) {
       const instance = new Map(mapRef.current, {

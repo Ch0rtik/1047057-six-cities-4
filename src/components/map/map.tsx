@@ -44,7 +44,7 @@ export default function Map({mainPage, centerCoordinates, offers, selectedOffer}
       };
     }
 
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, mainPage, selectedOffer]);
 
   return (
     <section className={mainPage ? 'cities__map map' : 'offer__map map'}

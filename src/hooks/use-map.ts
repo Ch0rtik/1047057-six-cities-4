@@ -2,9 +2,16 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Location } from '../types/types';
 import { Map, TileLayer } from 'leaflet';
 
+function isMapOutDated(map: Map, coords: Location) {
+  return (coords.latitude !== map.getCenter().lat) || (coords.longitude !== map.getCenter().lng);
+}
+
+
 export default function useMap(mapRef: React.MutableRefObject<HTMLElement | null>, coords: Location): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
+
+  console.log(map?.getCenter());
 
   useEffect(() => {
     if(mapRef.current !== null && !isRenderedRef.current) {
@@ -27,6 +34,8 @@ export default function useMap(mapRef: React.MutableRefObject<HTMLElement | null
 
       setMap(instance);
       isRenderedRef.current = true;
+    } else if (map !== null && isMapOutDated(map, coords)){
+      map.setView({lat: coords.latitude, lng: coords.longitude}, coords.zoom);
     }
 
   }, [mapRef, coords]);

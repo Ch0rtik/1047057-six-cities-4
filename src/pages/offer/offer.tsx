@@ -17,6 +17,8 @@ export default function Offer({authStatus}: OfferProps) {
   const { id } = useParams();
   const {offerData, reviewsData, nearbyData} = useAppSelector((state) => state.currentOfferData);
 
+  console.log(offerData?.location);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -118,7 +120,7 @@ export default function Offer({authStatus}: OfferProps) {
             </section>
           </div>
         </div>
-        <Map mainPage={false} centerCoordinates={offerData.location} offers={nearbyData} selectedOffer={offerData}></Map>
+        <Map mainPage={false} centerCoordinates={offerData.location} offers={[...nearbyData, offerData]} selectedOffer={offerData}></Map>
       </section>
 
       <div className="container">

@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
-import { SortType } from '../types/types';
-import { useAppSelector } from '../hooks';
+import { SortType } from '../../../types/types';
+import { useAppSelector } from '../../../hooks';
 
 type PlacesOptionsProps = {
   open: boolean;

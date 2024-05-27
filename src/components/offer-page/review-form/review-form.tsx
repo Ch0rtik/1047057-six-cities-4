@@ -1,6 +1,6 @@
 import { FormEvent, SyntheticEvent, useState } from 'react';
-import { useAppDispatch } from '../hooks';
-import { sendCommentAction } from '../store/api-actions';
+import { useAppDispatch } from '../../../hooks';
+import { sendCommentAction } from '../../../store/api-actions';
 
 export type ReviewFormProps = {
   id: string;

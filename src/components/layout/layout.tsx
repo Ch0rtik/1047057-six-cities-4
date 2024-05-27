@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, Location } from 'react-router-dom';
-import { AuthStatus } from '../utils/const';
+import { AuthStatus } from '../../utils/const';
 
 type LayoutProps = {
   authStatus: AuthStatus;

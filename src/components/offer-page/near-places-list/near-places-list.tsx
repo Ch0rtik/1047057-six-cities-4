@@ -1,4 +1,4 @@
-import { OfferCardData } from '../types/types';
+import { OfferCardData } from '../../../types/types';
 import NearPlacesCard from './near-places-card';
 
 type NearPlacesProps = {

@@ -1,13 +1,13 @@
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { fetchOfferPageData } from '../store/api-actions';
 import { useEffect } from 'react';
-import Map from '../components/map.tsx';
-import LoadingScreen from './loading-screen';
-import ReviewList from '../components/review-list';
-import ReviewForm from '../components/review-form';
-import NearPlacesList from '../components/near-places-list';
-import { AuthStatus } from '../utils/const.ts';
+import Map from '../../components/map/map.tsx';
+import NearPlacesList from '../../components/offer-page/near-places-list/near-places-list.tsx';
+import ReviewForm from '../../components/offer-page/review-form/review-form.tsx';
+import ReviewList from '../../components/offer-page/review-list/review-list.tsx';
+import { useAppSelector, useAppDispatch } from '../../hooks/index.ts';
+import { fetchOfferPageData } from '../../store/api-actions.ts';
+import { AuthStatus } from '../../utils/const.ts';
+import LoadingScreen from '../loading-screen/loading-screen.tsx';
 
 type OfferProps = {
   authStatus: AuthStatus;

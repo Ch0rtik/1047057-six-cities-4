@@ -1,7 +1,7 @@
-import FavoritesList from '../components/favorites-list';
-import { OfferCardData } from '../types/types';
-import { useAppSelector } from '../hooks';
 import React from 'react';
+import FavoritesList from '../../components/favorites-places/favorites-list';
+import { useAppSelector } from '../../hooks';
+import { OfferCardData } from '../../types/types';
 
 export default function Favorites() {
   const offers: OfferCardData[] = useAppSelector((state) => state.offers);

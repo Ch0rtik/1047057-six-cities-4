@@ -1,4 +1,4 @@
-import { OfferCardData } from '../types/types';
+import { OfferCardData } from '../../../types/types';
 import PlaceCard from './place-card';
 import { MouseEvent } from 'react';
 
@@ -8,7 +8,7 @@ type OfferListProps = {
   onListItemHover: (listItemId: string | undefined) => void;
 };
 
-export default function OfferList({offers, onListItemHover}: OfferListProps) {
+export default function PlacesList({offers, onListItemHover}: OfferListProps) {
   const onMouseEnter = (evt: MouseEvent<HTMLLIElement>) => {
     evt.preventDefault();
     onListItemHover(evt.currentTarget.dataset.id);

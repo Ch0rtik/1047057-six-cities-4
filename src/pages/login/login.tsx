@@ -1,7 +1,7 @@
 import { FormEvent, useRef } from 'react';
-import { loginAction } from '../store/api-actions';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../hooks';
+import { useAppDispatch } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
 
 export default function Login() {
   const loginRef = useRef<HTMLInputElement | null>(null);

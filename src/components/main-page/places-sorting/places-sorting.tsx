@@ -1,8 +1,8 @@
 import { MouseEvent, useState } from 'react';
-import { SortType } from '../types/types';
+import { SortType } from '../../../types/types';
 import PlacesOptions from './places-options';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { changeSort } from '../store/action';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { changeSort } from '../../../store/action';
 
 type PlacesSortingProps = {
   onSortChange: (newSortType: SortType) => void;

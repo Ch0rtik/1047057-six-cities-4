@@ -1,10 +1,10 @@
+import PlacesList from '../../components/main-page/places-list/places-list.tsx';
+import PlacesSorting from '../../components/main-page/places-sorting/places-sorting.tsx';
+import Map from '../../components/map/map.tsx';
 import { useState } from 'react';
-import OfferList from '../components/offer-list.tsx';
-import { CityNames, OfferCardData, SortType} from '../types/types.ts';
-import Map from '../components/map.tsx';
-import PlacesSorting from '../components/places-sorting.tsx';
-import { useAppSelector } from '../hooks/index.ts';
-import sortOffers from '../utils/utils.ts';
+import { useAppSelector } from '../../hooks/index.ts';
+import { OfferCardData, SortType, CityNames } from '../../types/types.ts';
+import sortOffers from '../../utils/utils.ts';
 
 export default function Main() {
   const [initialOffers, city] = useAppSelector((state) => [
@@ -67,7 +67,7 @@ export default function Main() {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{placesFound} places to stay in {city.name}</b>
             <PlacesSorting onSortChange={onSortChange}></PlacesSorting>
-            <OfferList offers={offers} onListItemHover={handleListItemHover}/>
+            <PlacesList offers={offers} onListItemHover={handleListItemHover}/>
           </section>
           <div className="cities__right-section">
             <Map mainPage centerCoordinates={city.location} offers={offers} selectedOffer={selectedOffer}></Map>

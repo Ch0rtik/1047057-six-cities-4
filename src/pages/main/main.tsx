@@ -19,6 +19,7 @@ export default function Main() {
 
   const [selectedOffer, setSelectedOffer] = useState<OfferCardData | undefined> (undefined);
   const [offers, setOffers] = useState<OfferCardData[]> ([...initialOffers]);
+
   const onSortChange = (innerSortType: SortType) => {
     setOffers(sortOffers(offers, innerSortType, initialOffers));
   };
@@ -32,7 +33,7 @@ export default function Main() {
     dispatch(changeCity({name: cityName.toString(), location: CITY_COORDINATES.get(cityName)!}));
     const newInitialOffers = [...allOffers].filter((offer: OfferCardData) => offer.city.name === cityName.toString());
     setInitialOffer(newInitialOffers);
-    setOffers(sortOffers(offers, sortType, newInitialOffers));
+    setOffers(sortOffers(newInitialOffers, sortType, newInitialOffers));
   };
   return(
     <main className="page__main page__main--index">

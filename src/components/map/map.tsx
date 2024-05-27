@@ -36,7 +36,7 @@ export default function Map({mainPage, centerCoordinates, offers, selectedOffer}
           lng: offer.location.longitude,
         });
 
-        marker.setIcon(selectedOffer !== undefined && offer.id === selectedOffer.id ? currentCustomIcom : defaultCustomIcom).addTo(markerLayer);
+        marker.setIcon(selectedOffer !== undefined && offer.id === selectedOffer.id && mainPage ? currentCustomIcom : defaultCustomIcom).addTo(markerLayer);
       });
 
       return () => {

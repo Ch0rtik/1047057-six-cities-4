@@ -13,12 +13,14 @@ export default function Login() {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (loginRef.current !== null && passwordRef.current !== null) {
-      dispatch(loginAction({
-        login: loginRef.current.value,
-        password: passwordRef.current.value
-      }));
-      navigate('/');
+    if (loginRef.current !== null && passwordRef.current !== null && passwordRef.current.value.length !== 0) {
+      if(passwordRef.current.value.match(/[A-z0-9]*(([A-z]+[0-9]+)|([0-9]+[A-z]+))[A-z0-9]*/)){
+        dispatch(loginAction({
+          login: loginRef.current.value,
+          password: passwordRef.current.value
+        }));
+        navigate('/');
+      }
     }
   };
 

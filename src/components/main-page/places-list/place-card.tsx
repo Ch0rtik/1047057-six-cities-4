@@ -1,8 +1,9 @@
 import { MouseEvent } from 'react';
 import { OfferCardData } from '../../../types/types';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { setFavoriteAction } from '../../../store/api-actions';
+import { AuthStatus } from '../../../utils/const';
 
 type PlaceCardProps = {
   offer: OfferCardData;
@@ -11,10 +12,13 @@ type PlaceCardProps = {
 
 export default function PlaceCard({offer, onMouseEnter}: PlaceCardProps) {
   const dispatch = useAppDispatch();
+  const authStatus = useAppSelector((state) => state.authStatus);
   const handleFavoriteClick = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    const newStatus = (offer.isFavorite) ? 0 : 1;
-    dispatch(setFavoriteAction({id: offer.id, status: newStatus}));
+    if(authStatus === AuthStatus.Auth) {
+      const newStatus = (offer.isFavorite) ? 0 : 1;
+      dispatch(setFavoriteAction({id: offer.id, status: newStatus}));
+    }
   };
 
   return(

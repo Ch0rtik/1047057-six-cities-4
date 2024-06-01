@@ -32,20 +32,23 @@ export const fetchFavorites = createAsyncThunk<void, undefined, {dispatch: AppDi
   }
 );
 
-export const setFavoriteAction = createAsyncThunk<void, {id: string; status: number}, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.SET_FAVORITE,
-  async ({id, status}, {dispatch, extra: api}) => {
-    await api.post<OfferCardData>(`${APIRoute.Favorite}/${id}/${status}`);
-    dispatch(fetchFavorites());
-    dispatch(fetchOffers());
-  }
-);
-
 export const fetchOfferPageData = createAsyncThunk<void, string, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.FETCH_OFFER_PAGE,
   async (offerId, {dispatch, extra: api}) => {
     const {data: offerData} = await api.get<OfferData>(`${APIRoute.Offers}/${offerId}`);
     const {data: reviewsData} = await api.get<ReviewData[]>(`${APIRoute.Reviews}/${offerId}`);
     const {data: nearbyData} = await api.get<OfferCardData[]>(`${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`);
     dispatch(loadOfferPage({offerData, reviewsData, nearbyData}));
+  }
+);
+
+export const setFavoriteAction = createAsyncThunk<void, {id: string; status: number; isOfferPage: boolean}, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.SET_FAVORITE,
+  async ({id, status, isOfferPage}, {dispatch, extra: api}) => {
+    await api.post<OfferCardData>(`${APIRoute.Favorite}/${id}/${status}`);
+    dispatch(fetchFavorites());
+    dispatch(fetchOffers());
+    if(isOfferPage) {
+      dispatch(fetchOfferPageData(id));
+    }
   }
 );
 
@@ -74,6 +77,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {dispatch: AppDispat
     dispatch(requireAuthorization(AuthStatus.Auth));
     dispatch(addEmail(email));
     dispatch(fetchFavorites());
+    dispatch(fetchOffers());
   },
 );
 
@@ -82,6 +86,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {dispatch: AppDisp
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireAuthorization(AuthStatus.NoAuth));
+    dispatch(loadFavorites([]));
     dispatch(addEmail(''));
   }
 );

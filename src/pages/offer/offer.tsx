@@ -1,11 +1,11 @@
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, MouseEvent } from 'react';
 import Map from '../../components/map/map.tsx';
 import NearPlacesList from '../../components/offer-page/near-places-list/near-places-list.tsx';
 import ReviewForm from '../../components/offer-page/review-form/review-form.tsx';
 import ReviewList from '../../components/offer-page/review-list/review-list.tsx';
 import { useAppSelector, useAppDispatch } from '../../hooks/index.ts';
-import { fetchOfferPageData } from '../../store/api-actions.ts';
+import { fetchOfferPageData, setFavoriteAction } from '../../store/api-actions.ts';
 import { AuthStatus } from '../../utils/const.ts';
 import LoadingScreen from '../loading-screen/loading-screen.tsx';
 
@@ -16,6 +16,8 @@ type OfferProps = {
 export default function Offer({authStatus}: OfferProps) {
   const { id } = useParams();
   const {offerData, reviewsData, nearbyData} = useAppSelector((state) => state.currentOfferData);
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -28,6 +30,16 @@ export default function Offer({authStatus}: OfferProps) {
       <LoadingScreen/>
     );
   }
+
+  const handleFavoriteClick = (evt: MouseEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
+    if(authStatus === AuthStatus.Auth) {
+      const newStatus = (offerData.isFavorite) ? 0 : 1;
+      dispatch(setFavoriteAction({id: offerData.id, status: newStatus, isOfferPage: true}));
+    } else {
+      navigate('/login');
+    }
+  };
 
   return (
     <main className="page__main page__main--offer">
@@ -54,9 +66,9 @@ export default function Offer({authStatus}: OfferProps) {
               <h1 className="offer__name">
                 {offerData.title}
               </h1>
-              <button className="offer__bookmark-button button" type="button">
+              <button onClick={handleFavoriteClick} className={`offer__bookmark-button ${(authStatus === AuthStatus.Auth && offerData.isFavorite) ? 'offer__bookmark-button--active ' : ''}button`} type="button">
                 <svg className="offer__bookmark-icon" width="31" height="33">
-                  {offerData?.isFavorite && <use xlinkHref="#icon-bookmark"></use>}
+                  <use xlinkHref="#icon-bookmark"></use>
                 </svg>
                 <span className="visually-hidden">To bookmarks</span>
               </button>

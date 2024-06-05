@@ -5,9 +5,10 @@ import NearPlacesList from '../../components/offer-page/near-places-list/near-pl
 import ReviewForm from '../../components/offer-page/review-form/review-form.tsx';
 import ReviewList from '../../components/offer-page/review-list/review-list.tsx';
 import { useAppSelector, useAppDispatch } from '../../hooks/index.ts';
-import { fetchOfferPageData, setFavoriteAction } from '../../store/api-actions.ts';
+import { fetchOfferPageDataAction, setFavoriteAction } from '../../store/api-actions.ts';
 import { AuthStatus } from '../../utils/const.ts';
-import LoadingScreen from '../loading-screen/loading-screen.tsx';
+import Spinner from '../spinner/spinner.tsx';
+import { updateCurrentFavorite, updateFavorite } from '../../store/action.ts';
 
 type OfferProps = {
   authStatus: AuthStatus;
@@ -16,18 +17,21 @@ type OfferProps = {
 export default function Offer({authStatus}: OfferProps) {
   const { id } = useParams();
   const {offerData, reviewsData, nearbyData} = useAppSelector((state) => state.currentOfferData);
+  const offerPageLoading = useAppSelector((state) => state.offerPageLoading);
+
+  const firstNearbyData = nearbyData.slice(0,3);
 
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchOfferPageData(id!));
+    dispatch(fetchOfferPageDataAction(id!));
   }, [id, dispatch]);
 
-  if(!offerData) {
+  if(!offerData || offerPageLoading) {
     return(
-      <LoadingScreen/>
+      <Spinner/>
     );
   }
 
@@ -35,7 +39,10 @@ export default function Offer({authStatus}: OfferProps) {
     evt.preventDefault();
     if(authStatus === AuthStatus.Auth) {
       const newStatus = (offerData.isFavorite) ? 0 : 1;
-      dispatch(setFavoriteAction({id: offerData.id, status: newStatus, isOfferPage: true}));
+      dispatch(setFavoriteAction({id: offerData.id, status: newStatus})).then((result) => {
+        dispatch(updateFavorite({id: offerData.id, status: result.payload as boolean}));
+        dispatch(updateCurrentFavorite({status: result.payload as boolean}));
+      });
     } else {
       navigate('/login');
     }
@@ -82,13 +89,13 @@ export default function Offer({authStatus}: OfferProps) {
             </div>
             <ul className="offer__features">
               <li className="offer__feature offer__feature--entire">
-                {offerData?.type}
+                {offerData?.type.charAt(0).toUpperCase() + offerData?.type.slice(1)}
               </li>
               <li className="offer__feature offer__feature--bedrooms">
-                {offerData?.bedrooms} Bedrooms
+                {offerData?.bedrooms} Bedroom{offerData?.bedrooms > 1 ? 's' : ''}
               </li>
               <li className="offer__feature offer__feature--adults">
-                  Max {offerData?.maxAdults} adults
+                  Max {offerData?.maxAdults} adult{offerData?.maxAdults > 1 ? 's' : ''}
               </li>
             </ul>
             <div className="offer__price">
@@ -124,13 +131,13 @@ export default function Offer({authStatus}: OfferProps) {
             </div>
 
             <section className="offer__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{/*offer.reviews.length*/}</span></h2>
+              <h2 className="reviews__title">Reviews &middot; {reviewsData.length}<span className="reviews__amount">{/*offer.reviews.length*/}</span></h2>
               <ReviewList reviews={reviewsData}></ReviewList>
               {authStatus === AuthStatus.Auth ? (<ReviewForm id={offerData.id}></ReviewForm>) : ''}
             </section>
           </div>
         </div>
-        <Map mainPage={false} centerCoordinates={offerData.location} offers={[...nearbyData, offerData]} selectedOffer={offerData}></Map>
+        <Map mainPage={false} centerCoordinates={offerData.location} offers={[...firstNearbyData, offerData]} selectedOffer={offerData}></Map>
       </section>
 
       <div className="container">

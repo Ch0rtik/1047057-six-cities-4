@@ -1,11 +1,14 @@
 import { FormEvent, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import { AuthStatus, CITIES } from '../../utils/const';
+import { changeCity } from '../../store/action';
 
 export default function Login() {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const authStatus = useAppSelector((state) => state.authStatus);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -14,15 +17,29 @@ export default function Login() {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null && passwordRef.current.value.length !== 0) {
-      if(passwordRef.current.value.match(/[A-z0-9]*(([A-z]+[0-9]+)|([0-9]+[A-z]+))[A-z0-9]*/)){
-        dispatch(loginAction({
-          login: loginRef.current.value,
-          password: passwordRef.current.value
-        }));
-        navigate('/');
-      }
+      //if(passwordRef.current.value.match(/[A-z0-9]*(([A-z]+[0-9]+)|([0-9]+[A-z]+))[A-z0-9]*/) && passwordRef.current.value.length >= 3){
+      dispatch(loginAction({
+        login: loginRef.current.value,
+        password: passwordRef.current.value
+      })).then((result) => {
+        if (result.payload) {
+          navigate('/');
+        }
+      });
     }
   };
+
+  const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
+
+  const handleCityClick = () => {
+    dispatch(changeCity(randomCity));
+  };
+
+  if (authStatus === AuthStatus.Auth) {
+    return (
+      <Navigate to="/" />
+    );
+  }
 
   return(
     <main className="page__main page__main--login">
@@ -42,10 +59,10 @@ export default function Login() {
           </form>
         </section>
         <section className="locations locations--login locations--current">
-          <div className="locations__item">
-            <a className="locations__item-link" href="#">
-              <span>Amsterdam</span>
-            </a>
+          <div className="locations__item" onClick={handleCityClick}>
+            <Link to='/' className="locations__item-link">
+              <span>{randomCity.name}</span>
+            </Link>
           </div>
         </section>
       </div>

@@ -1,4 +1,5 @@
 import { ReviewData } from '../../../types/types';
+import formatReviewDate from '../../../utils/format-review-date';
 
 type ReviewProps = {
   review: ReviewData;
@@ -25,7 +26,7 @@ export default function Review({ review }: ReviewProps) {
         <p className="reviews__text">
           {review.comment}
         </p>
-        <time className="reviews__time" dateTime={review.date}>{review.date}</time>
+        <time className="reviews__time" dateTime={review.date}>{formatReviewDate(review.date)}</time>
       </div>
     </li>
   );

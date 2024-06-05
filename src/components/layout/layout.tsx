@@ -1,14 +1,14 @@
 import { Link, Outlet, useLocation, Location } from 'react-router-dom';
 import { AuthStatus } from '../../utils/const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AppDispatch, OfferCardData } from '../../types/types';
+import { AppDispatch, OfferCardData, UserData } from '../../types/types';
 import { MouseEvent } from 'react';
 import { logoutAction } from '../../store/api-actions';
 type LayoutProps = {
   authStatus: AuthStatus;
 }
 
-function generateLayout(currentLocation: Location, authStatus: AuthStatus, favorites: OfferCardData[] | null, email: string, dispatch: AppDispatch) {
+function generateLayout(currentLocation: Location, authStatus: AuthStatus, favorites: OfferCardData[] | null, user: UserData | undefined, dispatch: AppDispatch) {
 
   if (currentLocation.pathname.startsWith('/login')) {
     return (
@@ -35,13 +35,16 @@ function generateLayout(currentLocation: Location, authStatus: AuthStatus, favor
   };
 
   const divClassName = (currentLocation.pathname === '/') ? 'page page--gray page--main' : 'page';
-  const list = authStatus === AuthStatus.Auth ? (
+  const list = (authStatus === AuthStatus.Auth) ? (
     <ul className="header__nav-list">
       <li className="header__nav-item user">
         <Link to="/favorites" className="header__nav-link header__nav-link--profile">
-          <div className="header__avatar-wrapper user__avatar-wrapper">
+          <div className="header__avatar-wrapper user__avatar-wrapper" style={{
+            backgroundImage: `url(${(user) ? user.avatarUrl : ''})`,
+            borderRadius: '50%'}}
+          >
           </div>
-          <span className="header__user-name user__name">{email}</span>
+          <span className="header__user-name user__name">{(user) ? user.email : 0}</span>
           <span className="header__favorite-count">{(favorites !== null) ? favorites.length : 0}</span>
         </Link>
       </li>
@@ -86,9 +89,9 @@ function generateLayout(currentLocation: Location, authStatus: AuthStatus, favor
 
 export default function Layout({authStatus}: LayoutProps) {
   const currentLocation = useLocation();
-  const [favorites, email] = useAppSelector((state) => [state.favorites, state.email]);
+  const [favorites, user] = useAppSelector((state) => [state.favorites, state.user]);
 
   const dispatch = useAppDispatch();
 
-  return generateLayout(currentLocation, authStatus, favorites, email, dispatch);
+  return generateLayout(currentLocation, authStatus, favorites, user, dispatch);
 }

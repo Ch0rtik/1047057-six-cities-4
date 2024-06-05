@@ -7,10 +7,13 @@ type ReviewListProps = {
 
 
 export default function ReviewList({reviews}: ReviewListProps) {
+  const sortedReviews = [...reviews];
+  sortedReviews.reverse();
+  const newestSortedReviews = sortedReviews.slice(0, 10);
   return (
     <ul className="reviews__list">
       {
-        reviews.map((review) => (
+        newestSortedReviews.map((review) => (
           <Review key={review.id} review={review}></Review>
         )
         )

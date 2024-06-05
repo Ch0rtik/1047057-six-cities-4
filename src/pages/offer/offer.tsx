@@ -17,6 +17,8 @@ export default function Offer({authStatus}: OfferProps) {
   const { id } = useParams();
   const {offerData, reviewsData, nearbyData} = useAppSelector((state) => state.currentOfferData);
 
+  const firstNearbyData = nearbyData.slice(0,3);
+
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
@@ -82,13 +84,13 @@ export default function Offer({authStatus}: OfferProps) {
             </div>
             <ul className="offer__features">
               <li className="offer__feature offer__feature--entire">
-                {offerData?.type}
+                {offerData?.type.charAt(0).toUpperCase() + offerData?.type.slice(1)}
               </li>
               <li className="offer__feature offer__feature--bedrooms">
-                {offerData?.bedrooms} Bedrooms
+                {offerData?.bedrooms} Bedroom{offerData?.bedrooms > 1 ? 's' : ''}
               </li>
               <li className="offer__feature offer__feature--adults">
-                  Max {offerData?.maxAdults} adults
+                  Max {offerData?.maxAdults} adult{offerData?.maxAdults > 1 ? 's' : ''}
               </li>
             </ul>
             <div className="offer__price">
@@ -124,13 +126,13 @@ export default function Offer({authStatus}: OfferProps) {
             </div>
 
             <section className="offer__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{/*offer.reviews.length*/}</span></h2>
+              <h2 className="reviews__title">Reviews &middot; {reviewsData.length}<span className="reviews__amount">{/*offer.reviews.length*/}</span></h2>
               <ReviewList reviews={reviewsData}></ReviewList>
               {authStatus === AuthStatus.Auth ? (<ReviewForm id={offerData.id}></ReviewForm>) : ''}
             </section>
           </div>
         </div>
-        <Map mainPage={false} centerCoordinates={offerData.location} offers={[...nearbyData, offerData]} selectedOffer={offerData}></Map>
+        <Map mainPage={false} centerCoordinates={offerData.location} offers={[...firstNearbyData, offerData]} selectedOffer={offerData}></Map>
       </section>
 
       <div className="container">

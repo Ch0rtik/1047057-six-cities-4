@@ -9,9 +9,11 @@ import { dropToken, saveToken } from '../services/token';
 export const fetchOffers = createAsyncThunk<void, undefined, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.FETCH_OFFERS,
   async (_arg, {dispatch, extra: api}) => {
     dispatch(setOffersLoading(true));
-    const {data} = await api.get<OfferCardData[]>(APIRoute.Offers);
+    const response = await api.get<OfferCardData[]>(APIRoute.Offers);
     dispatch(setOffersLoading(false));
-    dispatch(loadOffers(data));
+    if (response.status === 200) {
+      dispatch(loadOffers(response.data));
+    }
   }
 );
 
@@ -32,11 +34,14 @@ export const fetchFavorites = createAsyncThunk<void, undefined, {dispatch: AppDi
 export const fetchOfferPageData = createAsyncThunk<void, string, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.FETCH_OFFER_PAGE,
   async (offerId, {dispatch, extra: api}) => {
     dispatch(setOfferPageLoading(true));
-    const {data: offerData} = await api.get<OfferData>(`${APIRoute.Offers}/${offerId}`);
-    const {data: reviewsData} = await api.get<ReviewData[]>(`${APIRoute.Reviews}/${offerId}`);
-    const {data: nearbyData} = await api.get<OfferCardData[]>(`${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`);
+
+    const offerResponse = await api.get<OfferData>(`${APIRoute.Offers}/${offerId}`);
+    const reviewsResponse = await api.get<ReviewData[]>(`${APIRoute.Reviews}/${offerId}`);
+    const nearbyResponse = await api.get<OfferCardData[]>(`${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`);
     dispatch(setOfferPageLoading(false));
-    dispatch(loadOfferPage({offerData, reviewsData, nearbyData}));
+    if (offerResponse.status === 200 && reviewsResponse.status === 200 && nearbyResponse.status === 200) {
+      dispatch(loadOfferPage({offerData: offerResponse.data, reviewsData: reviewsResponse.data, nearbyData: nearbyResponse.data}));
+    }
   }
 );
 
@@ -54,18 +59,20 @@ export const setFavoriteAction = createAsyncThunk<number, {id: string; status: n
 
 export const sendCommentAction = createAsyncThunk<void, {newReviewData: NewReviewData; id: string}, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.SEND_REVIEW,
   async ({newReviewData, id}, {dispatch, extra: api}) => {
-    const {data: reviewData} = await api.post<ReviewData>(`${APIRoute.Reviews}/${id}`, {comment: newReviewData.comment, rating: newReviewData.rating});
-    dispatch(addReview(reviewData));
+    const response = await api.post<ReviewData>(`${APIRoute.Reviews}/${id}`, {comment: newReviewData.comment, rating: newReviewData.rating});
+    if (response.status === 201) {
+      dispatch(addReview(response.data));
+    }
   }
 );
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {dispatch: AppDispatch; state: State; extra: AxiosInstance}>(Action.CHECK_AUTH,
   async(_arg, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.get<UserData>(APIRoute.Login);
+    const response = await api.get<UserData>(APIRoute.Login);
+    if (response.status === 200) {
       dispatch(requireAuthorization(AuthStatus.Auth));
-      dispatch(addUser(data));
-    } catch {
+      dispatch(addUser(response.data));
+    } else {
       dispatch(requireAuthorization(AuthStatus.NoAuth));
     }
   }
@@ -73,12 +80,14 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {dispatch: AppD
 
 export const loginAction = createAsyncThunk<void, AuthData, {dispatch: AppDispatch; state: State; extra: AxiosInstance}>(Action.LOG_IN,
   async ({login: email, password}, {dispatch, extra: api}) => {
-    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(data.token);
-    dispatch(requireAuthorization(AuthStatus.Auth));
-    dispatch(addUser(data));
-    dispatch(fetchFavorites());
-    dispatch(fetchOffers());
+    const response = await api.post<UserData>(APIRoute.Login, {email, password});
+    if (response.status === 200) {
+      saveToken(response.data.token);
+      dispatch(requireAuthorization(AuthStatus.Auth));
+      dispatch(addUser(response.data));
+      dispatch(fetchFavorites());
+      dispatch(fetchOffers());
+    }
   },
 );
 

@@ -41,16 +41,16 @@ test('Работоспособность формы отправки комме�
 
   const reviewText = await page
       .locator('.reviews__text')
-      .last()
+      .first()
       .textContent();
     const reviewAuthor = (await page
       .locator('.reviews__user-name')
-      .last()
+      .first()
       .textContent())
       ?.trim();
     const reviewRating = await page
       .locator('.reviews__stars')
-      .last().locator('span').first()
+      .first().locator('span').first()
       .getAttribute('style');
 
     expect(reviewText).toBe(TEXT);

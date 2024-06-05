@@ -1,5 +1,4 @@
 import { RevolvingDot } from 'react-loader-spinner';
-import './style/spinner.css';
 
 export default function Spinner() {
   return (

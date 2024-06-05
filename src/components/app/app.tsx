@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
-import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import Spinner from '../../pages/loading-screen/loading-screen';
 import Layout from '../layout/layout';
 import { AuthStatus } from '../../utils/const';
 import Favorites from '../../pages/favorites/favorites';
@@ -13,10 +13,11 @@ import PrivateRoute from '../private-route/private-route';
 export default function App() {
   const authStatus = useAppSelector((state) => state.authStatus);
   const offersLoading = useAppSelector((state) => state.offersLoading);
+  const favoritesLoading = useAppSelector((state) => state.favoritesLoading);
 
-  if(offersLoading || authStatus === AuthStatus.Unknown) {
+  if(offersLoading || authStatus === AuthStatus.Unknown || favoritesLoading) {
     return(
-      <LoadingScreen></LoadingScreen>
+      <Spinner></Spinner>
     );
   }
 

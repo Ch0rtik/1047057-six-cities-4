@@ -7,7 +7,8 @@ import ReviewList from '../../components/offer-page/review-list/review-list.tsx'
 import { useAppSelector, useAppDispatch } from '../../hooks/index.ts';
 import { fetchOfferPageData, setFavoriteAction } from '../../store/api-actions.ts';
 import { AuthStatus } from '../../utils/const.ts';
-import LoadingScreen from '../loading-screen/loading-screen.tsx';
+import Spinner from '../loading-screen/loading-screen.tsx';
+import { updateCurrentFavorite, updateFavorite } from '../../store/action.ts';
 
 type OfferProps = {
   authStatus: AuthStatus;
@@ -16,6 +17,7 @@ type OfferProps = {
 export default function Offer({authStatus}: OfferProps) {
   const { id } = useParams();
   const {offerData, reviewsData, nearbyData} = useAppSelector((state) => state.currentOfferData);
+  const offerPageLoading = useAppSelector((state) => state.offerPageLoading);
 
   const firstNearbyData = nearbyData.slice(0,3);
 
@@ -27,9 +29,9 @@ export default function Offer({authStatus}: OfferProps) {
     dispatch(fetchOfferPageData(id!));
   }, [id, dispatch]);
 
-  if(!offerData) {
+  if(!offerData || offerPageLoading) {
     return(
-      <LoadingScreen/>
+      <Spinner/>
     );
   }
 
@@ -37,7 +39,10 @@ export default function Offer({authStatus}: OfferProps) {
     evt.preventDefault();
     if(authStatus === AuthStatus.Auth) {
       const newStatus = (offerData.isFavorite) ? 0 : 1;
-      dispatch(setFavoriteAction({id: offerData.id, status: newStatus, isOfferPage: true}));
+      dispatch(setFavoriteAction({id: offerData.id, status: newStatus})).then((result) => {
+        dispatch(updateFavorite({id: offerData.id, status: result.payload as boolean}));
+        dispatch(updateCurrentFavorite({status: result.payload as boolean}));
+      });
     } else {
       navigate('/login');
     }

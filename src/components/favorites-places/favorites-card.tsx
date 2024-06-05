@@ -3,6 +3,7 @@ import { useAppDispatch} from '../../hooks';
 import { setFavoriteAction } from '../../store/api-actions';
 import { OfferCardData } from '../../types/types';
 import { Link} from 'react-router-dom';
+import { updateFavorite } from '../../store/action';
 
 type FavCardProps = {
   offer: OfferCardData;
@@ -14,7 +15,9 @@ export default function FavoritesCard({offer}: FavCardProps) {
   const handleFavoriteClick = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     const newStatus = (offer.isFavorite) ? 0 : 1;
-    dispatch(setFavoriteAction({id: offer.id, status: newStatus, isOfferPage: false}));
+    dispatch(setFavoriteAction({id: offer.id, status: newStatus})).then((result) => {
+      dispatch(updateFavorite({id: offer.id, status: result.payload as boolean}));
+    });
   };
 
   return (

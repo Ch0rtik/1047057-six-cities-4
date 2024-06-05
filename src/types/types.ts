@@ -87,15 +87,16 @@ export type NewReviewData = {
 }
 
 export type State = {
-  email: string;
+  user?: UserData;
   city: City;
   offers: OfferCardData[];
   sortType: SortType;
   authStatus: AuthStatus;
-  error: string | null;
   offersLoading: boolean;
+  favoritesLoading: boolean;
+  offerPageLoading: boolean;
   currentOfferData: CurrentOfferData;
-  favorites: OfferCardData[] | null;
+  favorites: OfferCardData[];
 }
 
 export type CurrentOfferData = {
@@ -114,7 +115,9 @@ export enum SortType {
 export type AppDispatch = typeof store.dispatch;
 
 export type UserData = {
-  id: number;
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
   email: string;
   token: string;
 }

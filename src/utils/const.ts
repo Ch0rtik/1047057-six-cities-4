@@ -1,4 +1,4 @@
-import { CityNames, Location } from '../types/types';
+import { City, CityNames, Location } from '../types/types';
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 
@@ -18,6 +18,15 @@ export const CITY_COORDINATES = new Map<CityNames, Location>([
   [CityNames.Hamburg, {latitude: 53.5488, longitude: 9.9872, zoom: 12}],
   [CityNames.Paris, {latitude: 48.8566, longitude: 2.3522, zoom: 12}],
 ]);
+
+export const CITIES: City[] = [
+  {name: CityNames.Amsterdam.toString(), location: CITY_COORDINATES.get(CityNames.Amsterdam)!},
+  {name: CityNames.Brussels.toString(), location: CITY_COORDINATES.get(CityNames.Brussels)!},
+  {name: CityNames.Cologne.toString(), location: CITY_COORDINATES.get(CityNames.Cologne)!},
+  {name: CityNames.Dusseldorf.toString(), location: CITY_COORDINATES.get(CityNames.Dusseldorf)!},
+  {name: CityNames.Hamburg.toString(), location: CITY_COORDINATES.get(CityNames.Hamburg)!},
+  {name: CityNames.Paris.toString(), location: CITY_COORDINATES.get(CityNames.Paris)!},
+];
 
 export enum APIRoute {
   Offers = '/offers',

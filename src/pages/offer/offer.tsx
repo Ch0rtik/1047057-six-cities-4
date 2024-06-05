@@ -5,9 +5,9 @@ import NearPlacesList from '../../components/offer-page/near-places-list/near-pl
 import ReviewForm from '../../components/offer-page/review-form/review-form.tsx';
 import ReviewList from '../../components/offer-page/review-list/review-list.tsx';
 import { useAppSelector, useAppDispatch } from '../../hooks/index.ts';
-import { fetchOfferPageData, setFavoriteAction } from '../../store/api-actions.ts';
+import { fetchOfferPageDataAction, setFavoriteAction } from '../../store/api-actions.ts';
 import { AuthStatus } from '../../utils/const.ts';
-import Spinner from '../loading-screen/loading-screen.tsx';
+import Spinner from '../spinner/spinner.tsx';
 import { updateCurrentFavorite, updateFavorite } from '../../store/action.ts';
 
 type OfferProps = {
@@ -26,7 +26,7 @@ export default function Offer({authStatus}: OfferProps) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchOfferPageData(id!));
+    dispatch(fetchOfferPageDataAction(id!));
   }, [id, dispatch]);
 
   if(!offerData || offerPageLoading) {

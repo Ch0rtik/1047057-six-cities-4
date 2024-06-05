@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { SortType, State } from '../types/types';
-import { addFavorite, addReview, addUser, changeCity, changeSort, clearFavorite, loadFavorite, loadOfferPage, loadOffers, removeFavoriteById, requireAuthorization, setFavoritesLoading, setOfferPageLoading, setOffersLoading, updateCurrentFavorite, updateFavorite } from './action';
+import { addFavorite, addReview, addUser, changeCity, changeSort, clearFavorite, loadFavorites, loadOfferPage, loadOffers, removeFavoriteById, requireAuthorization, setFavoritesLoading, setOfferPageLoading, setOffersLoading, updateCurrentFavorite, updateFavorite } from './action';
 import { AuthStatus } from '../utils/const';
 
 const initialState: State = {
@@ -25,7 +25,7 @@ export const reducer = createReducer(initialState, (builder) => {
     state.offers = action.payload;
   }).addCase(loadOfferPage, (state, action) => {
     state.currentOfferData = action.payload;
-  }).addCase(loadFavorite, (state, action) => {
+  }).addCase(loadFavorites, (state, action) => {
     state.favorites = action.payload;
   }).addCase(addReview, (state, action) => {
     state.currentOfferData.reviewsData = [...state.currentOfferData.reviewsData, action.payload];

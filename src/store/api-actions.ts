@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, AuthData, NewReviewData, OfferCardData, OfferData, ReviewData, State, UserData } from '../types/types';
 import { AxiosInstance } from 'axios';
-import { Action, addFavorite, addReview, addUser, clearFavorite, loadFavorite as loadFavorites, loadOfferPage, loadOffers, removeFavoriteById, requireAuthorization, setFavoritesLoading, setOfferPageLoading, setOffersLoading } from './action';
+import { Action, addFavorite, addReview, addUser, clearFavorite, loadFavorites as loadFavorites, loadOfferPage, loadOffers, removeFavoriteById, requireAuthorization, setFavoritesLoading, setOfferPageLoading, setOffersLoading } from './action';
 import { APIRoute, AuthStatus } from '../utils/const';
 import { dropToken, saveToken } from '../services/token';
 
 
-export const fetchOffers = createAsyncThunk<void, undefined, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.FETCH_OFFERS,
+export const fetchOffersAction = createAsyncThunk<void, undefined, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.FETCH_OFFERS,
   async (_arg, {dispatch, extra: api}) => {
     try {
       dispatch(setOffersLoading(true));
@@ -20,7 +20,7 @@ export const fetchOffers = createAsyncThunk<void, undefined, {dispatch: AppDispa
   }
 );
 
-export const fetchFavorites = createAsyncThunk<void, undefined, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.FETCH_FAVORITE,
+export const fetchFavoritesAction = createAsyncThunk<void, undefined, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.FETCH_FAVORITES,
   async (_arg, {dispatch, extra: api}) => {
     try {
       dispatch(setFavoritesLoading(true));
@@ -34,7 +34,7 @@ export const fetchFavorites = createAsyncThunk<void, undefined, {dispatch: AppDi
   }
 );
 
-export const fetchOfferPageData = createAsyncThunk<void, string, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.FETCH_OFFER_PAGE,
+export const fetchOfferPageDataAction = createAsyncThunk<void, string, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.FETCH_OFFER_PAGE,
   async (offerId, {dispatch, extra: api}) => {
     dispatch(setOfferPageLoading(true));
 
@@ -97,8 +97,8 @@ export const loginAction = createAsyncThunk<boolean, AuthData, {dispatch: AppDis
       saveToken(response.data.token);
       dispatch(requireAuthorization(AuthStatus.Auth));
       dispatch(addUser(response.data));
-      dispatch(fetchFavorites());
-      dispatch(fetchOffers());
+      dispatch(fetchFavoritesAction());
+      dispatch(fetchOffersAction());
       return true;
     } catch {
       return false;

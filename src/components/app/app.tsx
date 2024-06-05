@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
-import Spinner from '../../pages/loading-screen/loading-screen';
+import Spinner from '../../pages/spinner/spinner';
 import Layout from '../layout/layout';
 import { AuthStatus } from '../../utils/const';
 import Favorites from '../../pages/favorites/favorites';

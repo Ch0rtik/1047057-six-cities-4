@@ -17,7 +17,7 @@ export default function Login() {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null && passwordRef.current.value.length !== 0) {
-      if(passwordRef.current.value.match(/[A-z0-9]*(([A-z]+[0-9]+)|([0-9]+[A-z]+))[A-z0-9]*/)){
+      if(passwordRef.current.value.match(/[A-z0-9]*(([A-z]+[0-9]+)|([0-9]+[A-z]+))[A-z0-9]*/) && passwordRef.current.value.length >= 3){
         dispatch(loginAction({
           login: loginRef.current.value,
           password: passwordRef.current.value

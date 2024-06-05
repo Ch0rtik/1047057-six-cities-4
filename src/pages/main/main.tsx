@@ -4,10 +4,10 @@ import Map from '../../components/map/map.tsx';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
 import { OfferCardData, SortType, CityNames } from '../../types/types.ts';
-import sortOffers from '../../utils/utils.ts';
 import { changeCity } from '../../store/action.ts';
 import { CITY_COORDINATES } from '../../utils/const.ts';
 import MainEmpty from '../../components/main-page/main-empty/main-empty.tsx';
+import sortOffers from '../../utils/sort-offers.ts';
 
 export default function Main() {
   const [allOffers, city, sortType] = useAppSelector((state) => [

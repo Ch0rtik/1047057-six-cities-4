@@ -28,6 +28,9 @@ export default function Main() {
     const currentOffer = offers.find((offer) => offer.id.toString() === lsitItemId);
     setSelectedOffer(currentOffer);
   };
+  const handleListItemLeave = () => {
+    setSelectedOffer(undefined);
+  };
 
   const dispatch = useAppDispatch();
   const generatehandleLocationItemClick = (cityName: CityNames) => () => {
@@ -81,7 +84,7 @@ export default function Main() {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{placesFound} places to stay in {city.name}</b>
             <PlacesSorting onSortChange={onSortChange}></PlacesSorting>
-            <PlacesList offers={offers} onListItemHover={handleListItemHover}/>
+            <PlacesList offers={offers} handleListItemHover={handleListItemHover} handleListItemLeave={handleListItemLeave}/>
           </section>
           <div className="cities__right-section">
             <Map mainPage centerCoordinates={city.location} offers={offers} selectedOffer={selectedOffer}></Map>

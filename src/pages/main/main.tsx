@@ -10,11 +10,10 @@ import MainEmpty from '../../components/main-page/main-empty/main-empty.tsx';
 import sortOffers from '../../utils/sort-offers.ts';
 
 export default function Main() {
-  const [allOffers, city, sortType] = useAppSelector((state) => [
-    state.offers,
-    state.city,
-    state.sortType
-  ]);
+  const allOffers = useAppSelector((state) => state.offers);
+  const city = useAppSelector((state) => state.city);
+  const sortType = useAppSelector((state) => state.sortType);
+
   const [initialOffers, setInitialOffer] = useState<OfferCardData[]>([...allOffers].filter((offer: OfferCardData) => offer.city.name === city.name));
   const placesFound = initialOffers.length;
 

@@ -96,7 +96,8 @@ function generateLayout(currentLocation: Location, authStatus: AuthStatus, favor
 
 export default function Layout({authStatus}: LayoutProps) {
   const currentLocation = useLocation();
-  const [favorites, user] = useAppSelector((state) => [state.favorites, state.user]);
+  const favorites = useAppSelector((state) => state.favorites);
+  const user = useAppSelector((state) => state.user);
 
   const dispatch = useAppDispatch();
 

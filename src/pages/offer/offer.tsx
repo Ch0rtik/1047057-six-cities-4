@@ -6,7 +6,7 @@ import ReviewForm from '../../components/offer-page/review-form/review-form.tsx'
 import ReviewList from '../../components/offer-page/review-list/review-list.tsx';
 import { useAppSelector, useAppDispatch } from '../../hooks/index.ts';
 import { fetchOfferPageDataAction, setFavoriteAction } from '../../store/api-actions.ts';
-import { AuthStatus } from '../../utils/const.ts';
+import { AuthStatus, NUMBER_OF_NEARBY } from '../../utils/const.ts';
 import Spinner from '../spinner/spinner.tsx';
 import { updateCurrentFavorite, updateFavorite } from '../../store/action.ts';
 
@@ -19,7 +19,7 @@ export default function Offer({authStatus}: OfferProps) {
   const {offerData, reviewsData, nearbyData} = useAppSelector((state) => state.currentOfferData);
   const offerPageLoading = useAppSelector((state) => state.offerPageLoading);
 
-  const firstNearbyData = nearbyData.slice(0,3);
+  const firstNearbyData = nearbyData.slice(0, NUMBER_OF_NEARBY);
 
   const navigate = useNavigate();
 

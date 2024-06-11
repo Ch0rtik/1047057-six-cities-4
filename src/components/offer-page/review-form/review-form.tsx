@@ -1,6 +1,7 @@
 import { FormEvent, SyntheticEvent, useState } from 'react';
 import { useAppDispatch } from '../../../hooks';
 import { sendCommentAction } from '../../../store/api-actions';
+import { MAX_REVIEW_LENGTH, MIN_REVIEW_LENGTH } from '../../../utils/const';
 
 export type ReviewFormProps = {
   id: string;
@@ -12,7 +13,7 @@ export default function ReviewForm({id}: ReviewFormProps) {
 
   const dispatch = useAppDispatch();
 
-  const isValid = () => text.trim().length > 49 && text.trim.length < 301 && rating !== 0;
+  const isValid = () => text.trim().length >= MIN_REVIEW_LENGTH && text.trim.length <= MAX_REVIEW_LENGTH && rating !== 0;
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

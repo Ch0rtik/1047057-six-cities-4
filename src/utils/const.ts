@@ -36,3 +36,9 @@ export enum APIRoute {
   Logout = '/logout',
   Favorite = '/favorite'
 }
+
+export const MIN_REVIEW_LENGTH = 50;
+export const MAX_REVIEW_LENGTH = 300;
+
+export const NUMBER_OF_REVIEWS = 10;
+export const NUMBER_OF_NEARBY = 3;

@@ -143,7 +143,7 @@ export default function Offer({authStatus}: OfferProps) {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <NearPlacesList offers={nearbyData}></NearPlacesList>
+          <NearPlacesList offers={firstNearbyData}></NearPlacesList>
         </section>
       </div>
     </main>

@@ -12,7 +12,7 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {dispatch: Ap
       dispatch(setOffersLoading(true));
       const response = await api.get<OfferCardData[]>(APIRoute.Offers);
       dispatch(loadOffers(response.data));
-    } catch {
+    } catch (e) {
       dispatch(loadOffers([]));
     } finally {
       dispatch(setOffersLoading(false));
@@ -26,7 +26,7 @@ export const fetchFavoritesAction = createAsyncThunk<void, undefined, {dispatch:
       dispatch(setFavoritesLoading(true));
       const {data} = await api.get<OfferCardData[]>(APIRoute.Favorite);
       dispatch(loadFavorites(data));
-    } catch {
+    } catch (e) {
       dispatch(loadFavorites([]));
     } finally {
       dispatch(setFavoritesLoading(false));
@@ -34,19 +34,23 @@ export const fetchFavoritesAction = createAsyncThunk<void, undefined, {dispatch:
   }
 );
 
-export const fetchOfferPageDataAction = createAsyncThunk<void, string, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.FETCH_OFFER_PAGE,
+export const fetchOfferPageDataAction = createAsyncThunk<boolean, string, {dispatch: AppDispatch;state: State; extra: AxiosInstance}>(Action.FETCH_OFFER_PAGE,
   async (offerId, {dispatch, extra: api}) => {
     dispatch(setOfferPageLoading(true));
-
+    let result;
     try {
       const offerResponse = await api.get<OfferData>(`${APIRoute.Offers}/${offerId}`);
       const reviewsResponse = await api.get<ReviewData[]>(`${APIRoute.Reviews}/${offerId}`);
       const nearbyResponse = await api.get<OfferCardData[]>(`${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`);
-
       dispatch(loadOfferPage({offerData: offerResponse.data, reviewsData: reviewsResponse.data, nearbyData: nearbyResponse.data}));
+      result = true;
+    } catch(e) {
+      result = false;
     } finally {
       dispatch(setOfferPageLoading(false));
     }
+
+    return result;
   }
 );
 
@@ -60,7 +64,7 @@ export const setFavoriteAction = createAsyncThunk<number, {id: string; status: n
         dispatch(removeFavoriteById(response.data.id));
       }
       return status;
-    } catch {
+    } catch (e) {
       return -1;
     }
   }
@@ -72,7 +76,7 @@ export const sendCommentAction = createAsyncThunk<boolean, {newReviewData: NewRe
       const response = await api.post<ReviewData>(`${APIRoute.Reviews}/${id}`, {comment: newReviewData.comment, rating: newReviewData.rating});
       dispatch(addReview(response.data));
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   }
@@ -84,7 +88,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {dispatch: AppD
       const response = await api.get<UserData>(APIRoute.Login);
       dispatch(requireAuthorization(AuthStatus.Auth));
       dispatch(addUser(response.data));
-    } catch {
+    } catch (e) {
       dispatch(requireAuthorization(AuthStatus.NoAuth));
     }
   }
@@ -100,7 +104,7 @@ export const loginAction = createAsyncThunk<boolean, AuthData, {dispatch: AppDis
       dispatch(fetchFavoritesAction());
       dispatch(fetchOffersAction());
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   },

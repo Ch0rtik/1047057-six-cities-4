@@ -10,11 +10,10 @@ import MainEmpty from '../../components/main-page/main-empty/main-empty.tsx';
 import sortOffers from '../../utils/sort-offers.ts';
 
 export default function Main() {
-  const [allOffers, city, sortType] = useAppSelector((state) => [
-    state.offers,
-    state.city,
-    state.sortType
-  ]);
+  const allOffers = useAppSelector((state) => state.offers);
+  const city = useAppSelector((state) => state.city);
+  const sortType = useAppSelector((state) => state.sortType);
+
   const [initialOffers, setInitialOffer] = useState<OfferCardData[]>([...allOffers].filter((offer: OfferCardData) => offer.city.name === city.name));
   const placesFound = initialOffers.length;
 
@@ -28,6 +27,9 @@ export default function Main() {
     const currentOffer = offers.find((offer) => offer.id.toString() === lsitItemId);
     setSelectedOffer(currentOffer);
   };
+  const handleListItemLeave = () => {
+    setSelectedOffer(undefined);
+  };
 
   const dispatch = useAppDispatch();
   const generatehandleLocationItemClick = (cityName: CityNames) => () => {
@@ -36,8 +38,8 @@ export default function Main() {
     setInitialOffer(newInitialOffers);
     setOffers(sortOffers(newInitialOffers, sortType, newInitialOffers));
   };
-  return (allOffers.length !== 0) ? (
-    <main className="page__main page__main--index">
+  return (
+    <main className={`page__main page__main--index${offers.length === 0 ? ' page__main--index-empty' : ''}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
@@ -76,20 +78,22 @@ export default function Main() {
         </section>
       </div>
       <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{placesFound} places to stay in {city.name}</b>
-            <PlacesSorting onSortChange={onSortChange}></PlacesSorting>
-            <PlacesList offers={offers} onListItemHover={handleListItemHover}/>
-          </section>
-          <div className="cities__right-section">
-            <Map mainPage centerCoordinates={city.location} offers={offers} selectedOffer={selectedOffer}></Map>
+        {offers.length === 0 ? (
+          <MainEmpty city={city}></MainEmpty>
+        ) : (
+          <div className="cities__places-container container">
+            <section className="cities__places places">
+              <h2 className="visually-hidden">Places</h2>
+              <b className="places__found">{placesFound} places to stay in {city.name}</b>
+              <PlacesSorting onSortChange={onSortChange}></PlacesSorting>
+              <PlacesList offers={offers} handleListItemHover={handleListItemHover} handleListItemLeave={handleListItemLeave}/>
+            </section>
+            <div className="cities__right-section">
+              <Map mainPage centerCoordinates={city.location} offers={offers} selectedOffer={selectedOffer}></Map>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </main>
-  ) : (
-    <MainEmpty></MainEmpty>
   );
 }

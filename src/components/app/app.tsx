@@ -28,8 +28,7 @@ export default function App() {
           <Route index element={<Main />} />
           <Route path="login" element={<Login />} />
           <Route path="favorites" element={<PrivateRoute authStatus={authStatus}><Favorites/></PrivateRoute>} />
-          <Route path="offer/">
-            <Route path=":id" element={<Offer authStatus={authStatus}/>} />
+          <Route path="offer/:id" element={<Offer authStatus={authStatus}/>}>
           </Route>
         </Route>
         <Route path="*" element={<NotFound/>}/>

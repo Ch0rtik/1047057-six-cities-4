@@ -1,14 +1,15 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, MouseEvent } from 'react';
+import { useEffect, MouseEvent, useState } from 'react';
 import Map from '../../components/map/map.tsx';
 import NearPlacesList from '../../components/offer-page/near-places-list/near-places-list.tsx';
 import ReviewForm from '../../components/offer-page/review-form/review-form.tsx';
 import ReviewList from '../../components/offer-page/review-list/review-list.tsx';
 import { useAppSelector, useAppDispatch } from '../../hooks/index.ts';
 import { fetchOfferPageDataAction, setFavoriteAction } from '../../store/api-actions.ts';
-import { AuthStatus } from '../../utils/const.ts';
+import { AuthStatus, NUMBER_OF_NEARBY } from '../../utils/const.ts';
 import Spinner from '../spinner/spinner.tsx';
 import { updateCurrentFavorite, updateFavorite } from '../../store/action.ts';
+import NotFound from '../not-found.tsx';
 
 type OfferProps = {
   authStatus: AuthStatus;
@@ -18,20 +19,25 @@ export default function Offer({authStatus}: OfferProps) {
   const { id } = useParams();
   const {offerData, reviewsData, nearbyData} = useAppSelector((state) => state.currentOfferData);
   const offerPageLoading = useAppSelector((state) => state.offerPageLoading);
+  const firstNearbyData = nearbyData.slice(0, NUMBER_OF_NEARBY);
 
-  const firstNearbyData = nearbyData.slice(0,3);
+  const [pageFound, setPageFound] = useState(true);
 
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchOfferPageDataAction(id!));
+    dispatch(fetchOfferPageDataAction(id!)).then((result) => {
+      setPageFound(result.payload as boolean);
+    });
   }, [id, dispatch]);
 
   if(!offerData || offerPageLoading) {
-    return(
+    return pageFound ? (
       <Spinner/>
+    ) : (
+      <NotFound/>
     );
   }
 
@@ -82,7 +88,7 @@ export default function Offer({authStatus}: OfferProps) {
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{ width: `${offerData.rating * 20}%` }}></span>
+                <span style={{ width: `${Math.round(offerData.rating) * 20}%` }}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="offer__rating-value rating__value">{offerData.rating}</span>
@@ -143,7 +149,7 @@ export default function Offer({authStatus}: OfferProps) {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <NearPlacesList offers={nearbyData}></NearPlacesList>
+          <NearPlacesList offers={firstNearbyData}></NearPlacesList>
         </section>
       </div>
     </main>

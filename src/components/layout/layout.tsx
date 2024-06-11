@@ -34,7 +34,14 @@ function generateLayout(currentLocation: Location, authStatus: AuthStatus, favor
     dispatch(logoutAction());
   };
 
-  const divClassName = (currentLocation.pathname === '/') ? 'page page--gray page--main' : 'page';
+  let divClassName;
+  if (currentLocation.pathname === '/') {
+    divClassName = 'page page--gray page--main';
+  } else if (currentLocation.pathname === '/favorites' && favorites?.length === 0) {
+    divClassName = 'page page--favorites-empty';
+  } else {
+    divClassName = 'page';
+  }
   const list = (authStatus === AuthStatus.Auth) ? (
     <ul className="header__nav-list">
       <li className="header__nav-item user">
@@ -89,7 +96,8 @@ function generateLayout(currentLocation: Location, authStatus: AuthStatus, favor
 
 export default function Layout({authStatus}: LayoutProps) {
   const currentLocation = useLocation();
-  const [favorites, user] = useAppSelector((state) => [state.favorites, state.user]);
+  const favorites = useAppSelector((state) => state.favorites);
+  const user = useAppSelector((state) => state.user);
 
   const dispatch = useAppDispatch();
 

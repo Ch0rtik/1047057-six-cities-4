@@ -9,9 +9,10 @@ import { updateFavorite } from '../../../store/action';
 type PlaceCardProps = {
   offer: OfferCardData;
   onMouseEnter: (evt: MouseEvent<HTMLLIElement>) => void;
+  onMouseLeave: (evt: MouseEvent<HTMLLIElement>) => void;
 }
 
-export default function PlaceCard({offer, onMouseEnter}: PlaceCardProps) {
+export default function PlaceCard({offer, onMouseEnter, onMouseLeave}: PlaceCardProps) {
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector((state) => state.authStatus);
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ export default function PlaceCard({offer, onMouseEnter}: PlaceCardProps) {
   };
 
   return(
-    <article className="cities__card place-card" onMouseEnter={onMouseEnter} data-id={`${offer.id}`}>
+    <article className="cities__card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} data-id={`${offer.id}`}>
       {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -63,7 +64,7 @@ export default function PlaceCard({offer, onMouseEnter}: PlaceCardProps) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${offer.rating * 20}%` }}></span>
+            <span style={{width: `${Math.round(offer.rating) * 20}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

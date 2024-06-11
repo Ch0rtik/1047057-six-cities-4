@@ -17,6 +17,8 @@ export default function ReviewForm({id}: ReviewFormProps) {
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(sendCommentAction({newReviewData: {comment: text, rating: rating}, id: id}));
+    setText('');
+    setRating(0);
   };
 
   const onTextChangeHandler = (evt: SyntheticEvent<HTMLTextAreaElement>) => {
@@ -26,35 +28,35 @@ export default function ReviewForm({id}: ReviewFormProps) {
     <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={() => setRating(5)}/>
+        <input checked={rating === 5} className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={() => setRating(5)}/>
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio" onChange={() => setRating(4)}/>
+        <input checked={rating === 4} className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio" onChange={() => setRating(4)}/>
         <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio" onChange={() => setRating(3)}/>
+        <input checked={rating === 3} className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio" onChange={() => setRating(3)}/>
         <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio" onChange={() => setRating(2)}/>
+        <input checked={rating === 2} className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio" onChange={() => setRating(2)}/>
         <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio" onChange={() => setRating(1)}/>
+        <input checked={rating === 1} className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio" onChange={() => setRating(1)}/>
         <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>

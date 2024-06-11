@@ -12,7 +12,7 @@ export default function ReviewForm({id}: ReviewFormProps) {
 
   const dispatch = useAppDispatch();
 
-  const isValid = () => text.trim().length > 49 && rating !== 0;
+  const isValid = () => text.trim().length > 49 && text.trim.length < 301 && rating !== 0;
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
